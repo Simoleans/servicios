@@ -4,6 +4,7 @@
             {{ __('Ver Productos') }}
         </h2>
     </x-slot>
+    <livewire:producto/>
 </x-app-layout>
 
 

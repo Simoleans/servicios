@@ -16,12 +16,12 @@
                         {{ __('Inicio') }}
                     </x-jet-nav-link>
                 </div>
-                 {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link  href="{{ route('productos.index') }}" :active="request()->routeIs('productos.index')">
                         {{ __('Productos') }}
                     </x-jet-nav-link>
-                </div> --}}
-                <div class="hidden sm:flex sm:items-center sm:ml-6">
+                </div>
+                {{-- <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-jet-dropdown align="left" width="48">
                         <x-slot name="trigger">
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -38,10 +38,6 @@
                         </x-slot>
     
                         <x-slot name="content">
-                            <!-- Account Management -->
-                            {{-- <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
-                            </div> --}}
     
                             <x-jet-dropdown-link href="{{ route('productos.index') }}">
                                 {{ __('Ver Productos') }}
@@ -56,7 +52,7 @@
                             <div class="border-t border-gray-100"></div>
                         </x-slot>
                     </x-jet-dropdown>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Settings Dropdown -->
