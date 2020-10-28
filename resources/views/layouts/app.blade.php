@@ -16,11 +16,11 @@
         @livewireStyles
 
         <!-- Scripts -->
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
+        <script src="{{ asset('js/alpine.js') }}" defer></script>
 
         <script src="{{ asset('js/app.js') }}"></script>
-        <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
-        <script type="text/javascript" src="{{ asset('js/mercadopago-function.js') }}" defer></script>
+        {{-- <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+        <script type="text/javascript" src="{{ asset('js/mercadopago-function.js') }}" defer></script> --}}
     </head>
     <style type="text/css">
         .input-background {

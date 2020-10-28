@@ -1,4 +1,4 @@
-<div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
+<div x-show="openModal == true" class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400 hidden" x-bind:class="{'hidden': !openModal}">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         
       <div class="fixed inset-0 transition-opacity">
@@ -68,7 +68,7 @@
                 </span>
                 <span class="mt-3 flex w-full rounded-md shadow-sm sm:mt-0 sm:w-auto">
                     
-                    <button wire:click="closeModal()" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
+                    <button @click="openModal = !true" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 px-4 py-2 bg-white text-base leading-6 font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                     Cerrar
                     </button>
                 </span>
