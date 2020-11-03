@@ -16,9 +16,14 @@
                         {{ __('Inicio') }}
                     </x-jet-nav-link>
                 </div>
-                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link  href="{{ route('productos.index') }}" :active="request()->routeIs('productos.index')">
                         {{ __('Productos') }}
+                    </x-jet-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link  href="{{ route('servicios') }}" :active="request()->routeIs('servicios')">
+                        {{ __('Servicios') }}
                     </x-jet-nav-link>
                 </div>
                 {{-- <div class="hidden sm:flex sm:items-center sm:ml-6">

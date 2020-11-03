@@ -3,13 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagosController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Livewire\ServiciosComponent;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome',ServiciosComponent::class);
 });
 
+Route::get('servicios',ServiciosComponent::class)->name('servicios');
+
 //Route::get('/mercadopago', 'PagosController@payment_mercadopago');
-Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
+//Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
