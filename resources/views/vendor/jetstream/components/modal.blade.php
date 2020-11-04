@@ -16,6 +16,9 @@ switch ($maxWidth ?? '2xl') {
     case 'xl':
         $maxWidth = 'sm:max-w-xl';
         break;
+    case '3xl':
+        $maxWidth = 'sm:max-w-3xl';
+        break;
     case '2xl':
     default:
         $maxWidth = 'sm:max-w-2xl';
@@ -23,7 +26,7 @@ switch ($maxWidth ?? '2xl') {
 }
 @endphp
 
-<div id="{{ $id }}" x-data="{ show: @entangle($attributes->wire('model')) }"
+<div id="{{ $id }}" @if($attributes->wire('model')->value == true) x-data="{show: @entangle($attributes->wire('model')) }" @endif
         x-show="show"
         x-on:close.stop="show = false"
         x-on:keydown.escape.window="show = false"
@@ -45,6 +48,7 @@ switch ($maxWidth ?? '2xl') {
                     x-transition:leave="ease-in duration-200"
                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    
         {{ $slot }}
     </div>
 </div>

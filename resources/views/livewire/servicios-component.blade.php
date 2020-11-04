@@ -1,4 +1,4 @@
-<div class="py-12" x-data="{openModal : false}" x-init="openModal = false" >
+<div class="py-12" x-data="{show : false}" x-init="show = false" >
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
             @if (session()->has('message'))
@@ -10,13 +10,13 @@
                   </div>
                 </div>
             @endif
-            <button x-on:click="openModal = !false" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Crear Producto</button>
+            <button x-on:click="show = true" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Crear Servicio</button>
            
-            @include('productos.modal.create')
+            @include('servicios.modal.create')
            
             
             <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar">
-            @if($productos->count())
+            @if($servicios->count())
               <table class="table-fixed w-full">
                   <thead>
                       <tr class="bg-gray-100">
@@ -28,7 +28,7 @@
                       </tr>
                   </thead>
                   <tbody>
-                      @foreach($productos as $p)
+                      @foreach($servicios as $p)
                       <tr>
                           <td class="border px-4 py-2">{{ $loop->iteration }}</td>
                           <td class="border px-4 py-2">
@@ -50,7 +50,7 @@
                   </tbody>
               </table>
             <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-              {{ $productos->links() }}
+              {{ $servicios->links() }}
             </div>
             @else
               <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">

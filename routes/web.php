@@ -6,7 +6,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Livewire\ServiciosComponent;
 
 Route::get('/', function () {
-    return view('welcome',ServiciosComponent::class);
+    return view('auth.login');
 });
 
 Route::get('servicios',ServiciosComponent::class)->name('servicios');
