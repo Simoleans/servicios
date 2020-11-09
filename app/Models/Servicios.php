@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\ServicioProductos;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Servicios extends Model
 {
@@ -47,5 +48,10 @@ class Servicios extends Model
         }
 
         return $text;
+    }
+
+    public function productos()
+    {
+        return $this->hasMany(ServicioProductos::class,'servicio_id');
     }
 }

@@ -14,53 +14,19 @@
            
             @include('servicios.modal.create')
            
+              <div class="flex items-center border-b border-gray-900 py-2 w-full">
+                <input wire:model.debounce.300ms="search" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 pb-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Buscar" aria-label="Buscar">
+                <div class="pr-7">
+                  <div  wire:loading class="spinner"></div>
+                </div>
+              </div>
+            {{-- <input class="form-input rounded-md shadow-sm mt-1 block" type="text" wire:model.debounce.500ms="search" placeholder="Buscar"> --}}
+           
+              
             
-            <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar">
             @if($servicios->count())
-              {{-- <table class="table-fixed w-full">
-                  <thead>
-                      <tr class="bg-gray-100">
-                          <th class="px-4 py-2 w-20">No.</th>
-                          <th class="px-4 py-2 w-20">Foto</th>
-                          <th class="px-4 py-2">Nombre</th>
-                          <th class="px-4 py-2">Descripción</th>
-                          <th class="px-4 py-2">Action</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      @foreach($servicios as $p)
-                      <tr>
-                          <td class="border px-4 py-2">{{ $loop->iteration }}</td>
-                          <td class="border px-4 py-2">
-                            <img src="{{asset('storage/'.$p->foto)}}">
-                            <p class="text-xs">
-                              <a href="#">Editar</a>
-                            </p>
-                          </td>
-                          <td class="border px-4 py-2">{{ $p->nombre }}</td>
-                          <td class="border px-4 py-2">{{ $p->descripcion_corta }}</td>
-                          <td class="border px-4 py-2">
-                          <button wire:loading.class.remove="hover:bg-red-700" wire:loading.class="cursor-not-allowed"	wire:click="delete({{ $p->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded  cursor-not-allowed">Eliminar</button>
-                          </td>
-                      </tr>
-                      @endforeach
-                  </tbody>
-              </table> --}}
               <div class="md:grid grid-cols-3 mt-3 gap-4">
                 @foreach($servicios as $p)
-                {{-- <div class="max-w-sm rounded shadow-lg">
-                  <img class="max-w-full h-45" src="{{asset('storage/'.$p->foto)}}" alt="Sunset in the mountains">
-                  <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
-                    <p class="text-gray-700 text-base">
-                      {{ $p->descripcion_larga }}
-                    </p>
-                  </div>
-                  <div class="px-6 pt-4 pb-2">
-                    <button wire:loading.class.remove="hover:bg-red-700" wire:loading.class="cursor-not-allowed"	wire:click="delete({{ $p->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded  cursor-not-allowed">Eliminar</button>
-                    <button wire:loading.class.remove="hover:bg-red-700" wire:loading.class="cursor-not-allowed"	wire:click="delete({{ $p->id }})" class="bg-blue-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded  cursor-not-allowed">Eliminar</button>
-                  </div>
-                </div> --}}
                   <div class="wrapper max-w-xs bg-gray-50 rounded-b-md shadow-lg mb-2">
                      <div>
                         <img class="object-cover h-60 w-full" src="{{asset('storage/'.$p->foto)}}" alt="montaña" />
@@ -74,14 +40,12 @@
                         </p>
                      </div>
                      <div class=" pt-4 pb-2">
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${{ $p->precio_normal }}</span>
                       </div>
                      <div class="grid grid-cols-2">
-                        <button class="bg-teal-600 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-teal-500">
+                        <a class="bg-teal-600 justify-center py-2 text-center text-white font-semibold transition duration-300 hover:bg-teal-500" href="{{ route('servicio.show',$p->id) }}">
                             Agregar Producto
-                        </button>
+                        </a>
                         <button class="bg-red-600 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500">
                             Eliminar
                         </button>

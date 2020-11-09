@@ -44,4 +44,9 @@ class Producto extends Model
 
         return $text;
     }
+
+    public function servicios()
+    {
+        return $this->hasMany(ServicioProductos::class,'producto_id');
+    }
 }

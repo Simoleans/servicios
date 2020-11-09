@@ -17,7 +17,7 @@ class ServiciosComponent extends Component
     
     public function render()
     {
-        return view('livewire.servicios-component',['servicios' => Servicios::where('nombre','LIKE',"%{$this->search}%")->paginate(15)])->layout('layouts.app',['header' => 'Servicios']);
+        return view('livewire.servicios-component',['servicios' => Servicios::where('nombre','LIKE',"%{$this->search}%")->orWhere('descripcion_larga','LIKE',"%{$this->search}%")->paginate(6)])->layout('layouts.app',['header' => 'Servicios']);
     }
 
     public function store()
