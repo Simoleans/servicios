@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Team;
 use App\Models\User;
 use App\Models\Producto;
 use App\Models\Servicios;
@@ -15,9 +16,11 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-         Servicios::factory(20)->create();
-         Producto::factory(20)->create();
+    {       
+         Producto::factory(10)->create();
+         Servicios::factory(10)->create();
+         User::factory(1)->create();
+         Team::factory(1)->create();
         
     }
 }
