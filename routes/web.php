@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\TicketComponent;
 use App\Http\Controllers\PagosController;
 use App\Http\Livewire\ServiciosComponent;
 use App\Http\Controllers\ProductoController;
@@ -12,6 +13,7 @@ Route::get('/', function () {
 
 Route::get('servicios',ServiciosComponent::class)->name('servicios');
 Route::get('/servicio/{servicio}', ServiciosProductosComponent::class)->name('servicio.show');
+Route::get('ticket',TicketComponent::class)->name('ticket');
 
 //Route::get('/mercadopago', 'PagosController@payment_mercadopago');
 //Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
