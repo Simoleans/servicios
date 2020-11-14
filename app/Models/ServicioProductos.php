@@ -24,7 +24,7 @@ class ServicioProductos extends Model
     {
         if($this->porcentaje > 0 && $this->porcentaje < 100)
         {
-            return $this->porcentaje.'%';
+            return '-'.$this->porcentaje.'%';
 
         }else if($this->porcentaje == 0 ){
             return 'TOTAL';

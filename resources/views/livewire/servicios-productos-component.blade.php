@@ -88,7 +88,7 @@
                       </div>
                       <div class="grid grid-cols-2 gap-4">
                         <p class=" rounded-full {{ $p->descuento() === 'GRATIS' ? 'line-through' : ''}} px-3 py-1 text-sm font-semibold text-gray-700 ">${{ $p->producto->precio_normal }}</p>
-                        <p class=" rounded-full  px-3 py-1  text-right	 font-semibold {{ ($p->descuento() > 0 && $p->descuento() < 100) ? 'text-green-500 text-base' : 'text-gray-700 text-sm'}} ">{!! $p->descuento() !!}</p>
+                        <p class=" rounded-full  px-3 py-1  text-right	 font-semibold {{ ($p->descuento() > 0 && $p->descuento() < 100) ? 'text-red-500 text-base' : 'text-gray-700 text-sm'}} ">{!! $p->descuento() !!}</p>
                         <button class="bg-red-600 col-span-2 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500"  wire:click="deleteProductToService({{ $p->id }})">
                             Eliminar
                         </button>
