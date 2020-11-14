@@ -15,14 +15,21 @@ class ServiciosProductosComponent extends Component
 
     protected $listeners = ['productoHidden'];
 
+    public function getPorcentajeProperty()
+    {
+        return $this->porcentaje == '' ? 0 : $this->porcentaje;
+    }
+
     public function mount(Servicios $servicio)
     {
         $this->servicio = $servicio;
 
     }
 
-    public function productoHidden($array) {
-        $this->productoID = $array;
+    public function productoHidden($producto_id,$porcentaje) {
+        //dd($producto_id,$porcentaje);
+        $this->productoID = $producto_id;
+        $this->porcentaje = $porcentaje;
         $this->addProductToService();
     }
 
@@ -39,13 +46,15 @@ class ServiciosProductosComponent extends Component
 
     public function addProductToService()
     {
+        //dd(request());
         $this->validate([
-            'porcentaje' => 'required|max:100|min:0',
+            'porcentaje' => 'integer|max:100',
         ]);
-
+           // dd($this->porcentaje);
         ServicioProductos::create([
             'producto_id' => $this->productoID,
             'servicio_id' => $this->servicio->id,
+            'porcentaje' => $this->porcentaje
         ]);
 
         $this->dispatchBrowserEvent('modal', ['modal' => false]);

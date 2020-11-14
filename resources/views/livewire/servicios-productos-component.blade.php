@@ -1,6 +1,10 @@
 <div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-1">
-      <div class="py-5" x-data="openModal()">
+      <div class="py-5" 
+      x-data="openModal()" 
+      x-init="$watch('show', (value) => {
+       if(value == false){resetInput()}
+      })">
         @include('servicios.modal.productos')
           <!-- CARDS Productos -->
           <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -28,7 +32,7 @@
                                   <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${{ $p->precio_normal }}</span>
                               </div>
                               <div class="grid grid-cols-1">
-                                  <button @click="open(event)" id="{{ $p->id }}"  nombre="{{ $p->nombre }}" class="bg-teal-600 justify-center py-2 text-center text-white font-semibold transition duration-300 hover:bg-teal-500">
+                                  <button @click="open(event)"  id="{{ $p->id }}"  nombre="{{ $p->nombre }}" class="bg-teal-600 justify-center py-2 text-center text-white font-semibold transition duration-300 hover:bg-teal-500">
                                       Agregar Producto
                                   </button>
                               </div>
@@ -82,13 +86,12 @@
                             {{ $p->producto->nombre }}
                           </h3>
                       </div>
-                      <div class=" pt-4 pb-2">
-                          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${{ $p->producto->precio_normal }}</span>
-                        </div>
-                      <div class="grid grid-cols-1">
-                          <button class="bg-red-600 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500"  wire:click="deleteProductToService({{ $p->id }})">
-                              Eliminar
-                          </button>
+                      <div class="grid grid-cols-2 gap-4">
+                        <p class=" rounded-full {{ $p->descuento() === 'GRATIS' ? 'line-through' : ''}} px-3 py-1 text-sm font-semibold text-gray-700 ">${{ $p->producto->precio_normal }}</p>
+                        <p class=" rounded-full  px-3 py-1  text-right	 font-semibold {{ ($p->descuento() > 0 && $p->descuento() < 100) ? 'text-green-500 text-base' : 'text-gray-700 text-sm'}} ">{!! $p->descuento() !!}</p>
+                        <button class="bg-red-600 col-span-2 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500"  wire:click="deleteProductToService({{ $p->id }})">
+                            Eliminar
+                        </button>
                       </div>
                     </div>
                   @endforeach
@@ -107,8 +110,6 @@
   </div>
 </div>
 
-
-
 <script>
   function openModal() {
         return {
@@ -118,7 +119,7 @@
           id : '',
           porcentaje : "",
           check : '',
-          producto_id : '',
+          produ_id : '',
           printData : (e,attr) => e.target.getAttribute(attr),
           isOpen() { return this.show === true },
           isClose() {  
@@ -128,13 +129,13 @@
           open(e) { 
             //alert(this.printData(e,'id'))
               this.productoNombre = this.printData(e,'nombre');
-              this.$refs.pID.value = this.printData(e,'id');
+              this.produ_id = this.printData(e,'id');
               this.show = true;
           },
           printGratis(e) {
             if(e.target.checked){
               this.porcentaje = 100;
-              this.disabledField = true;
+              this.disabledField = false;
             }else{
               this.porcentaje = '';
               this.disabledField = false;
@@ -142,7 +143,9 @@
           },
           store(){
             //envio el formulario a mi componente emitiendo unos datos
-            window.livewire.emit('productoHidden', this.$refs.pID.value);
+            
+            /* envio el producto id de x-ref y envio el porcentaje */
+            window.livewire.emit('productoHidden', this.produ_id,this.porcentaje);
 
             //escucho mi componente para recibir datos del componentes renderizados en JS UNA MARAVILLA
             window.addEventListener('modal', event => {
@@ -152,7 +155,8 @@
           resetInput() {
             this.porcentaje = '';
             this.disabledField = false;
-            this.$refs.pID.value = '';
+            this.produ_id = '';
+            this.check = false;
           }
         }
     }
