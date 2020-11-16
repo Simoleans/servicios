@@ -25,7 +25,7 @@ class Producto extends Component
     public function create()
     {
         $this->modalInputFile(true);
-        $this->resetInputFields();
+        $this->resetInput();
         $this->openModal();
     }
 
@@ -49,28 +49,28 @@ class Producto extends Component
             'precio_normal' => $this->precio_normal
         ]);
   
-        // session()->flash('message', 
-        //     $this->post_id ? 'Post Updated Successfully.' : 'Post Created Successfully.');
+        
         session()->flash('message', 
             'Producto Creado Correctamente.');
   
         $this->closeModal();
-        $this->resetInputFields();
+        $this->resetInput();
     }
 
-    private function resetInputFields(){
+    public function resetInput()
+    {
 
-      $this->nombre = '';
+        $this->nombre = '';
 
-      $this->descripcion_corta = '';
+        $this->descripcion_corta = '';
 
-      $this->descripcion_larga = '';
+        $this->descripcion_larga = '';
 
-      $this->precio_normal = '';
+        $this->precio_normal = '';
 
-      $this->precio_rebajado = '';
+        $this->precio_rebajado = '';
 
-  }
+    }
 
     public function openModal()
     {
@@ -82,6 +82,7 @@ class Producto extends Component
         $this->isOpen = false;
     }
 
+    /* para mostrar el input de foto */
     public function modalInputFile($bool)
     {
         $this->inputFoto = $bool;
@@ -104,9 +105,10 @@ class Producto extends Component
 
     public function delete($id)
     {
-        //dd("sdksk");
+       
         $producto = ModelsProducto::find($id);
-        unlink('storage/'.$producto->foto);
+        Storage::delete($producto->foto);
+        //unlink('storage/'.$producto->foto);
         $producto->delete();
         
         session()->flash('message', 'Producto Eliminado Correctamente.');

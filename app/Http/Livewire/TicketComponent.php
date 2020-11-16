@@ -15,7 +15,7 @@ class TicketComponent extends Component
 
     public function render()
     {
-        return view('livewire.ticket-component',['tickets' => Ticket::all()])->layout('layouts.app',['header' => 'Ticket de descuentos']);
+        return view('livewire.ticket-component',['tickets' => Ticket::paginate(5)])->layout('layouts.app',['header' => 'Ticket de descuentos']);
     }
 
     public function store()
@@ -27,6 +27,14 @@ class TicketComponent extends Component
             'monto' => 'required|min:2|max:7',
         ]);
         
-        dd("store");
+        Ticket::create([
+            'codigo' => $this->codigo,
+            'fecha_exp' => $this->fecha_exp,
+            'tipo' => $this->tipo,
+            'monto' => $this->monto,
+        ]);
+
+        session()->flash('message', 
+            'Producto Creado Correctamente.');
     }
 }

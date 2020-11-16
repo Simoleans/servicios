@@ -27,7 +27,7 @@ class ServiciosProductosComponent extends Component
     }
 
     public function productoHidden($producto_id,$porcentaje) {
-        //dd($producto_id,$porcentaje);
+
         $this->productoID = $producto_id;
         $this->porcentaje = $porcentaje;
         $this->addProductToService();
@@ -46,11 +46,10 @@ class ServiciosProductosComponent extends Component
 
     public function addProductToService()
     {
-        //dd(request());
         $this->validate([
             'porcentaje' => 'integer|max:100',
         ]);
-           // dd($this->porcentaje);
+        
         ServicioProductos::create([
             'producto_id' => $this->productoID,
             'servicio_id' => $this->servicio->id,

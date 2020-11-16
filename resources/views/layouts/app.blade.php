@@ -17,7 +17,8 @@
 
         <!-- Scripts -->
 
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/alpine.js') }}" defer></script>
         {{-- <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
         <script type="text/javascript" src="{{ asset('js/mercadopago-function.js') }}" defer></script> --}}
     </head>
@@ -53,6 +54,6 @@
         @stack('modals')
 
         @livewireScripts
-        <script src="{{ asset('js/alpine.js') }}" defer></script>
+        
     </body>
 </html>
