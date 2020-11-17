@@ -20,7 +20,6 @@ class Servicios extends Model
         'dias_pruebas',
         'dias_suspender',
         'dias_notificar',
-        'ciclo_facturacion',
     ];
 
     public static function slugify($text)
@@ -53,5 +52,10 @@ class Servicios extends Model
     public function productos()
     {
         return $this->hasMany(ServicioProductos::class,'servicio_id');
+    }
+
+    public function ciclos()
+    {
+        return $this->hasMany(CicloServicio::class,'servicio_id');
     }
 }

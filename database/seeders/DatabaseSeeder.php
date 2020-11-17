@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CicloServicio;
 use App\Models\Team;
 use App\Models\User;
 use App\Models\Producto;
@@ -18,7 +19,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {       
          Producto::factory(10)->create();
-         Servicios::factory(10)->create();
+         Servicios::factory(10)
+            ->has(CicloServicio::factory()->count(3), 'ciclos')
+            ->create();
          User::factory(1)->create();
          Team::factory(1)->create();
         

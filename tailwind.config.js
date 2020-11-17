@@ -25,6 +25,9 @@ module.exports = {
 
     variants: {
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        animation: ['responsive', 'motion-safe', 'motion-reduce'],
+        boxShadow: ['responsive', 'hover', 'focus'],
+        transitionProperty: ['responsive', 'hover', 'focus','motion-safe', 'motion-reduce'],
     },
 
     plugins: [require('@tailwindcss/ui'), require('tailwindcss-spinner')],

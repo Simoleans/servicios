@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\CicloServicio;
 use Livewire\Component;
 use App\Models\Servicios;
 use Livewire\WithFileUploads;
@@ -14,7 +15,7 @@ class ServiciosComponent extends Component
 
     use WithFileUploads;
 
-    public $search, $nombre, $descripcion_corta,$foto,$descripcion_larga,$precio_rebajado,$precio_normal,$dias_pruebas,$dias_suspender,$dias_notificar,$ciclo_facturacion;
+    public $search, $nombre, $descripcion_corta,$foto,$descripcion_larga,$precio_rebajado,$precio_normal,$dias_pruebas,$dias_suspender,$dias_notificar,$mes,$porcentaje;
     //dynamic inputs ciclo de meses
     public $isOpen = true;
     public $inputFoto = true;
@@ -27,7 +28,7 @@ class ServiciosComponent extends Component
     
     public function render()
     {
-        return view('livewire.servicios-component',['servicios' => Servicios::where('nombre','LIKE',"%{$this->search}%")->orWhere('descripcion_larga','LIKE',"%{$this->search}%")->paginate(6)])
+        return view('livewire.servicios-component',['servicios' => Servicios::where('nombre','LIKE',"%{$this->search}%")->orWhere('descripcion_larga','LIKE',"%{$this->search}%")->orderby('id','DESC')->paginate(6)])
                ->layout('layouts.app',['header' => 'Servicios']);
     }
 
@@ -57,13 +58,10 @@ class ServiciosComponent extends Component
             'serv.max' => 'Solo se permiten 4 ciclos de pago.'
         ]);
         //$this->validate();
-        dd($this->serv);
+        //dd($this->serv);
 
-        dd("hola");
-
-       
           
-        Servicios::create([
+        $servicio = Servicios::create([
             'nombre' => $this->nombre,
             'descripcion_corta' => $this->descripcion_corta,
             'descripcion_larga' => $this->descripcion_larga,
@@ -73,9 +71,19 @@ class ServiciosComponent extends Component
             'dias_pruebas' => $this->dias_pruebas,
             'dias_suspender' => $this->dias_suspender,
             'dias_notificar' => $this->dias_notificar,
-            'ciclo_facturacion' => $this->ciclo_facturacion
         ]);
-  
+        foreach($this->serv as $ciclo)
+        {
+            CicloServicio::create([
+                'servicio_id' => $servicio->id,
+                'mes' => $ciclo['mes'],
+                'porcentaje' => $ciclo['oferta'],
+            ]);
+            //$d [] = $ciclo;
+        }
+
+        $this->dispatchBrowserEvent('show', ['show' => false]);
+        
         session()->flash('message', 
             'Servicio Creado Correctamente.');
   
@@ -89,10 +97,9 @@ class ServiciosComponent extends Component
             'dias_pruebas',
             'dias_suspender',
             'dias_notificar',
-            'ciclo_facturacion',
         ]);
 
-        $this->closeModal();
+        $this->arrayFormCiclo = [];
     }
 
     public function closeModal()

@@ -31,7 +31,6 @@ class ServiciosFactory extends Factory
             'dias_pruebas' => $this->faker->randomNumber(2),
             'dias_suspender' => $this->faker->randomNumber(1),
             'dias_notificar' => $this->faker->randomNumber(1),
-            'ciclo_facturacion' => $this->faker->randomElement(array(1,3,6,12))
         ];
     }
 }
