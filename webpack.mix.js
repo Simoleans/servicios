@@ -17,6 +17,10 @@ mix.js(['resources/js/app.js'], 'public/js')
         require('tailwindcss'),
     ]);
 
+    // mix.scripts([
+    //     'public/js/alpine.js',
+    // ], 'public/js/app.js');
+
 // mix.combine([
 //     'public/js/mercadopago-function.js',
 // ], 'public/js/app.js');

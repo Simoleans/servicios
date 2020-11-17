@@ -34,6 +34,8 @@ class TicketComponent extends Component
             'monto' => $this->monto,
         ]);
 
+        $this->dispatchBrowserEvent('show', ['show' => false]);
+        
         session()->flash('message', 
             'Producto Creado Correctamente.');
     }

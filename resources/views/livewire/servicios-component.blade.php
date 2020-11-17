@@ -2,9 +2,7 @@
 <div class="py-12"  x-data="servicios()"
                     x-init="() => {
                       window.addEventListener('show', event => {
-                          console.log(show)
                           show = false;
-                          
                       })               
                     }">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

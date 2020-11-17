@@ -1,4 +1,9 @@
-<div class="py-12" x-data="{show : false}" x-init="show = false" >
+<div class="py-12"  x-data="ticket()"  
+                    x-init="() => {
+                      window.addEventListener('show', event => {
+                          show = false;
+                      })               
+                    }">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
             @if (session()->has('message'))
@@ -20,36 +25,24 @@
                   <div  wire:loading wire:target="search" class="spinner"></div>
                 </div>
               </div>
-            {{-- <input class="form-input rounded-md shadow-sm mt-1 block" type="text" wire:model.debounce.500ms="search" placeholder="Buscar"> --}}
-           
-              
-            
             @if($tickets->count())
               <div class="md:grid grid-cols-3 mt-3 gap-4">
                 @foreach($tickets as $t)
-                  <div class="wrapper max-w-xs bg-gray-50 rounded-b-md shadow-lg mb-2">
-                     <div>
-                        <img class="object-cover h-60 w-full" src="{{asset('storage/'.$t->foto)}}" alt="montaña" />
-                     </div>
-                     <div class="p-3 space-y-3">
-                        <h3 class="text-gray-700 font-semibold text-md">
-                           {{ $t->nombre }}
-                        </h3>
-                        <p class="text-sm text-gray-900 leading-sm">
-                           {{ $t->descripcion_larga }}
-                        </p>
-                     </div>
-                     <div class=" pt-4 pb-2">
-                        <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${{ $t->precio_normal }}</span>
-                      </div>
-                     <div class="grid grid-cols-2">
-                        <a class="bg-teal-600 justify-center py-2 text-center text-white font-semibold transition duration-300 hover:bg-teal-500" href="{{ route('servicio.show',$t->id) }}">
-                            Agregar Producto
+                  <div class="px-2">
+                    <div class="bg-white px-4 py-4 flex my-2 rounded-lg shadow">
+                      <div class="w-24 pr-5">
+                        <a href="#" class="mb-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2V5h1v1H5zM3 13a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zm2 2v-1h1v1H5zM13 3a1 1 0 00-1 1v3a1 1 0 001 1h3a1 1 0 001-1V4a1 1 0 00-1-1h-3zm1 2v1h1V5h-1z" clip-rule="evenodd" />
+                            <path d="M11 4a1 1 0 10-2 0v1a1 1 0 002 0V4zM10 7a1 1 0 011 1v1h2a1 1 0 110 2h-3a1 1 0 01-1-1V8a1 1 0 011-1zM16 9a1 1 0 100 2 1 1 0 000-2zM9 13a1 1 0 011-1h1a1 1 0 110 2v2a1 1 0 11-2 0v-3zM7 11a1 1 0 100-2H4a1 1 0 100 2h3zM17 13a1 1 0 01-1 1h-2a1 1 0 110-2h2a1 1 0 011 1zM16 17a1 1 0 100-2h-3a1 1 0 100 2h3z" />
+                          </svg>
                         </a>
-                        <button class="bg-red-600 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500">
-                            Eliminar
-                        </button>
-                     </div>
+                      </div>
+                      <div class="flex-1" @click="copy($event)">
+                        <h2 class="font-bold text-gray-700 my-0">{{ $t->codigo }}</h2>
+                        <h2 class="font-bold text-gray-700 my-0">{{ $t->monto }}</h2>
+                      </div>
+                    </div>
                   </div>
                 @endforeach
               </div>
@@ -64,6 +57,21 @@
         </div>
     </div>
   </div>
+
+  <script>
+    function ticket()
+    {
+      return {
+        show : false,
+        copy(event)
+        {
+          window.prompt("Copie el codigo: Ctrl+C ", event.target.innerText);
+           document.execCommand('copy');
+          
+        }
+      }
+    }
+  </script>
   
   
   

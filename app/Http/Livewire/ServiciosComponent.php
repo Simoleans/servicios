@@ -57,10 +57,7 @@ class ServiciosComponent extends Component
             'serv.required' => 'Debe agregar al menos 1 ciclo de pago.',
             'serv.max' => 'Solo se permiten 4 ciclos de pago.'
         ]);
-        //$this->validate();
-        //dd($this->serv);
-
-          
+       
         $servicio = Servicios::create([
             'nombre' => $this->nombre,
             'descripcion_corta' => $this->descripcion_corta,
@@ -79,7 +76,6 @@ class ServiciosComponent extends Component
                 'mes' => $ciclo['mes'],
                 'porcentaje' => $ciclo['oferta'],
             ]);
-            //$d [] = $ciclo;
         }
 
         $this->dispatchBrowserEvent('show', ['show' => false]);
