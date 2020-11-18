@@ -3,9 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TicketComponent;
 use App\Http\Controllers\PagosController;
+use App\Http\Livewire\DashboardComponent;
 use App\Http\Livewire\ServiciosComponent;
 use App\Http\Controllers\ProductoController;
-use App\Http\Livewire\DashboardComponent;
+use App\Http\Livewire\SaleServicioComponent;
 use App\Http\Livewire\ServiciosProductosComponent;
 
 Route::get('/', function () {
@@ -16,6 +17,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/dashboard',DashboardComponent::class)->name('dashboard');
     Route::get('servicios',ServiciosComponent::class)->name('servicios');
     Route::get('/servicio/{servicio}', ServiciosProductosComponent::class)->name('servicio.show');
+    Route::get('/comprar/servicio/{slug}', SaleServicioComponent::class)->name('servicio.venta.show');
     Route::get('ticket',TicketComponent::class)->name('ticket');
 });
 

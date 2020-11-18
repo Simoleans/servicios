@@ -10,8 +10,9 @@ use Livewire\WithPagination;
 class DashboardComponent extends Component
 {
     //use WithPagination;
-
-    public $search,$searchProducto;
+    public $searchProducto;
+    public $search;
+    
 
     //propiedad [mes] para formatear mes del ciclo
     public $mes;
