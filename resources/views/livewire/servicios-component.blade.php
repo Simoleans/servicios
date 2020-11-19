@@ -57,6 +57,9 @@
                         <button wire:click="resetartodo" class="bg-red-600 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500">
                             Eliminar
                         </button>
+                        <button wire:click="resetartodo" class="bg-green-400 col-span-2 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-green-300">
+                          Editar
+                      </button>
                      </div>
                   </div>
                 @endforeach

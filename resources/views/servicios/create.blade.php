@@ -83,6 +83,7 @@
           <x-jet-input-error for="dias_notificar" class="mt-2" />
         </div>
     </div>
+    <hr>
       @foreach ($arrayFormCiclo as $item => $key)
         <div class="grid grid-cols-3 gap-4 grid-rows-1 px-4 py-4" wire:key="servicio-ciclo-{{ $key }}">
           <div>
