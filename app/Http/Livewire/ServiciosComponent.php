@@ -19,11 +19,19 @@ class ServiciosComponent extends Component
     //dynamic inputs ciclo de meses
     public $isOpen = true;
     public $inputFoto = true;
+    public $editServicio = false;
     public $serv;
 
     //input dynamic
     public $counter = 0;
     public $arrayFormCiclo = []; 
+    public $indexEditar = true;
+    public $ciclos = [];
+    public $mesCiclo;
+    public $ciclo_id;
+    public $updateCiclo = false;
+    public $servicio_id;
+
 
     
     public function render()
@@ -69,6 +77,7 @@ class ServiciosComponent extends Component
             'dias_suspender' => $this->dias_suspender,
             'dias_notificar' => $this->dias_notificar,
         ]);
+
         foreach($this->serv as $ciclo)
         {
             CicloServicio::create([
@@ -127,13 +136,156 @@ class ServiciosComponent extends Component
         unset($this->arrayFormCiclo[$key]);
     }
 
-    public function storeCiclo()
+
+    public function meses($mes)
     {
-        $this->validate([
-            'mes.*' => 'required|max:36|min:1',
-            'oferta.*' => 'required|max:100|min:1',
+        $this->mes = $mes;
+
+        $year = 12; //meses que es un año
+
+        $operation = $this->mes / $year;
+
+        if (is_float($operation)) {
+            return $this->mes.' Mes(ses)';
+        }else{
+            return $operation.' Año(s)';
+        }
+    }
+
+    public function edit($id)
+    {
+        $servicio = Servicios::findOrfail($id);
+        $this->servicio_id = $id;
+        $this->nombre = $servicio->nombre;
+        $this->descripcion_corta = $servicio->descripcion_corta;
+        $this->descripcion_larga = $servicio->descripcion_larga;
+        $this->precio_normal = $servicio->precio_normal;
+        $this->precio_rebajado = $servicio->precio_rebajado;
+        $this->dias_pruebas = $servicio->dias_pruebas;
+        $this->dias_suspender = $servicio->dias_suspender;
+        $this->dias_notificar = $servicio->dias_notificar;  
+         $this->foto = $servicio->foto;
+        $this->getServicioCiclos($id);
+
+        $this->dispatchBrowserEvent('index', ['index' => false]);
+    }
+
+    public function update()
+    {
+        $servicio = Servicios::findOrfail($this->servicio_id);
+        //dd($this->foto);
+         $servicio->update([
+            'nombre' => $this->nombre,
+            'descripcion_corta' => $this->descripcion_corta,
+            'descripcion_larga' => $this->descripcion_larga,
+            'foto' => $this->foto != $servicio->foto ? $this->foto->store('fotos/servicios', 'public',Servicios::slugify($this->nombre).'.'.$this->foto->extension()) : $servicio->foto,
+            'precio_rebajado' => $this->precio_rebajado,
+            'precio_normal' => $this->precio_normal,
+            'dias_pruebas' => $this->dias_pruebas,
+            'dias_suspender' => $this->dias_suspender,
+            'dias_notificar' => $this->dias_notificar,
         ]);
 
-        dd($this->mes,$this->oferta);
+        session()->flash('message', 
+            'Servicio Editado Correctamente.');
+    }
+
+    public function editCiclo($id)
+    {
+        $this->reset(['mesCiclo','porcentaje']);
+        $this->updateCiclo = true;
+
+        $ciclo = CicloServicio::findOrfail($id);
+
+        $this->ciclo_id = $id;
+        $this->mesCiclo = $ciclo->mes;
+        $this->porcentaje = $ciclo->porcentaje;
+
+        $this->dispatchBrowserEvent('editShow', ['show' => true]);
+    }
+
+    public function getServicioCiclos($id)
+    {
+        $this->ciclos = Servicios::findOrfail($id)->ciclos;
+    }
+
+    public function updateCiclo()
+    {
+        $this->validate([
+            'ciclo_id' => 'required|numeric',
+            'mesCiclo' => 'integer|required|max:36',
+            'porcentaje' => 'integer|required|max:100',
+        ]);
+
+        $ciclo = CicloServicio::findOrfail($this->ciclo_id);
+
+        $ciclo->update([
+            'mes' => $this->mesCiclo,
+            'porcentaje' => $this->porcentaje
+        ]);
+
+        $this->dispatchBrowserEvent('editShow', ['show' => false]);
+        
+        //devolver los ciclos nuevamente
+        $this->getServicioCiclos($ciclo->servicio_id);
+
+        session()->flash('message', 
+            'Ciclo Editado Correctamente.');
+    }
+
+    public function createCiclo()
+    {
+        $this->reset(['mesCiclo','porcentaje']);
+        $this->updateCiclo = false;
+        
+        $this->dispatchBrowserEvent('editShow', ['show' => true]);
+    }
+
+    public function storeCiclo()
+    {
+        $this->updateCiclo = false;
+
+        $countCiclos = Servicios::findOrfail($this->servicio_id)->ciclos->count();
+
+        if ($countCiclos == 4) {
+            session()->flash('error', 
+             'No se puede registrar. Debe tener maximo 4 ciclos por servicio.');
+             return false;
+        }
+
+        CicloServicio::create([
+            'servicio_id' => $this->servicio_id,
+            'mes' => $this->mesCiclo,
+            'porcentaje' => $this->porcentaje
+        ]);
+
+        //devolver los ciclos nuevamente
+        $this->getServicioCiclos($this->servicio_id);
+
+        session()->flash('message', 
+            'Ciclo Creado Correctamente.');
+
+        $this->dispatchBrowserEvent('editShow', ['show' => false]);
+    }
+
+    public function deleteCiclo($id)
+    {
+        $ciclo = CicloServicio::findOrfail($id);
+
+        $countCiclos = Servicios::findOrfail($this->servicio_id)->ciclos->count();
+
+        if ($countCiclos == 1) {
+            session()->flash('error', 
+             'No se puede Eliminar, debe tener al menos 1 ciclo activo.');
+             return false;
+        }
+
+        $ciclo->delete();
+
+        //devolver los ciclos nuevamente
+        $this->getServicioCiclos($ciclo->servicio_id);
+
+        session()->flash('error', 
+            'Ciclo Eliminado Correctamente.');
     }
 }

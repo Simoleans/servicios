@@ -30,6 +30,7 @@
           background-repeat: no-repeat;
           background-color: #fff;
         }
+        [x-cloak] { display: none; }
     </style>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -38,8 +39,8 @@
             <!-- Page Heading -->
             <header class="bg-white shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                        {{ strtoupper($header) }}
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight capitalize">
+                        {{ $header }}
                     </h2>
                 </div>
             </header>
