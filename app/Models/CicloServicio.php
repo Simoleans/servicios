@@ -11,4 +11,9 @@ class CicloServicio extends Model
 
     public $fillable = ['servicio_id','mes','porcentaje'];
 
+    public function servicio()
+    {
+        return $this->belongsTo(Servicios::class,);
+    }
+
 }

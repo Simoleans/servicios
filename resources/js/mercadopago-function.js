@@ -1,5 +1,5 @@
  //REPLACE WITH YOUR PUBLIC KEY AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
-window.Mercadopago.setPublishableKey("TEST-6f22bafe-83c8-404d-8a82-87dc995920c0");
+window.Mercadopago.setPublishableKey("TEST-16040307-c08e-47e0-adc9-a82fbebdb057");
 
 window.Mercadopago.getIdentificationTypes();
   
@@ -109,7 +109,7 @@ function updateInstallmentsForIssuer(event) {
 
 //Proceed with payment
 doSubmit = false;
-document.getElementById('button_send').addEventListener('click', getCardToken);
+document.getElementById('paymentForm').addEventListener('submit', getCardToken);
 function getCardToken(event){
     event.preventDefault();
     if(!doSubmit){
@@ -127,10 +127,7 @@ function setCardTokenAndPay(status, response) {
         card.setAttribute('name', 'token');
         card.setAttribute('type', 'hidden');
         card.setAttribute('value', response.id);
-        //form.setAttribute('wire:submit.prevent','payment('+response.id+')');
         form.appendChild(card);
-        //console.log(card,response.id)
-        //window.livewire.emit('tokenMP', response.id);
         doSubmit=true;
         form.submit(); //Submit form data to your backend
     } else {
@@ -144,9 +141,9 @@ function setCardTokenAndPay(status, response) {
 
 function cleanCardInfo() {
     document.getElementById('cardNumber').style.backgroundImage = '';
-    //document.getElementById('issuerInput').classList.add("hidden");
-    // document.getElementById('issuer').options.length = 0;
-    // document.getElementById('installments').options.length = 0;
+    document.getElementById('issuerInput').classList.add("hidden");
+    document.getElementById('issuer').options.length = 0;
+    document.getElementById('installments').options.length = 0;
 }
 
 //Handle transitions
@@ -175,4 +172,4 @@ function cleanCardInfo() {
 // updatePrice();
 
 //Retrieve product description
-//document.getElementById('description').value = document.getElementById('product-description').innerHTML;
+document.getElementById('description').value = document.getElementById('product-description').innerHTML;

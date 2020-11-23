@@ -76,6 +76,7 @@ class ServiciosComponent extends Component
             'dias_pruebas' => $this->dias_pruebas,
             'dias_suspender' => $this->dias_suspender,
             'dias_notificar' => $this->dias_notificar,
+            'slug' => Servicios::slugify($this->nombre)
         ]);
 
         foreach($this->serv as $ciclo)

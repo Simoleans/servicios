@@ -22498,7 +22498,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ./alpine */ "./resources/js/alpine.js");
+__webpack_require__(/*! ./alpine */ "./resources/js/alpine.js"); //require('./mercadopago-function');
 
 /***/ }),
 
