@@ -120,7 +120,7 @@
                     <label class="block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2" for="grid-first-name">
                       Email
                     </label>
-                    <input class="form-input w-full bg-gray-400" id="email" type="text" name="email">
+                    <input class="form-input w-full bg-gray-300" readonly value="{{ auth()->user()->email }}" id="email" type="text" name="email">
                   </div>
                   <div class="w-full md:w-1/3 px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">

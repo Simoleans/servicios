@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use MercadoPago;
 
 class PaymentMercadoPago extends Model
 {
@@ -23,6 +24,25 @@ class PaymentMercadoPago extends Model
 
     public function store($request)
     {
-        dd($request->all());
+        $payment = new  MercadoPago\Payment();
+        $payment->transaction_amount = $request->transactionAmount;
+        $payment->token = $request->token;
+        $payment->description = $request->description;
+        $payment->installments = 1;
+        $payment->payment_method_id = $request->paymentMethodId;
+        $payment->payer = array(
+          "email" => $request->email
+        );
+        $payment->save();
+
+        //dd($payment,$payment->id);
+
+        self::create([
+            'payment_id' => $payment->id,
+            'payment_type_id' => $payment->payment_type_id,
+            'user_id' => auth()->user()->id,
+            'customer_id' => auth()->user()->customer->id,
+            'status_pago_mp' => $payment->status,
+        ]);
     }
 }

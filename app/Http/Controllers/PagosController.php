@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Http;
 class PagosController extends Controller
 {
   public $customerMP;
-  public $paymentMP
+  public $paymentMP;
 
   function __construct() 
   {
@@ -31,20 +31,10 @@ class PagosController extends Controller
        
       //customer va primero, el pago va asociado al customer (validando que si existe no lo hguarde)
       $this->customerMP->store($request->email);
+
+      //save paymentMP
       $this->paymentMP->store($request);
 
-      //payments
-      // $payment = new  MercadoPago\Payment();
-      // $payment->transaction_amount = $request->transactionAmount;
-      // $payment->token = $request->token;
-      // $payment->description = "Prueba fran";
-      // $payment->installments = 1;
-      // $payment->payment_method_id = "visa";
-      // $payment->payer = array(
-      //   "email" => $request->email
-      // );
-      // $payment->save();
-      //fin payments
 
       //store para el sistema
       // $customer_system = CustomerMercadoPago::create([

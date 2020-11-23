@@ -27,11 +27,13 @@
                                 <strong>$ {{ $this->totalWithPorcent($this->ciclo->mes,$this->ciclo->porcentaje) }}</strong><br>
                                 <span class="{{ $this->ciclo->porcentaje > 0 ? 'text-red-600 font-semibold text-lg' : '' }}">{{ $this->ciclo->porcentaje }}%</span>
                             </p>
-                            
                         </div>
-                       
                     </article>
-                </div>
+                    <form class="m-4 flex flex-col">
+                        <input class="rounded-l-lg p-4 border-t mr-0 border-b border-l  -gray-800 border-gray-200 bg-white" placeholder="Ticket De Descuento" required/>
+                        <button class="px-8 rounded-r-lg rounded-l-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r" type="submit">Aplicar Ticket</button>
+                    </form>
+                  </div>
             </div> <!-- fin card productos -->
         </div>
     </div>
