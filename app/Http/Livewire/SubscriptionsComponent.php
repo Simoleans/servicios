@@ -13,7 +13,8 @@ use \Illuminate\Session\SessionManager;
 
 class SubscriptionsComponent extends Component
 {
-    public $ciclo;
+    public $ciclo,$codigo;
+    public $ticketExists = false;
     
 
     //pago
@@ -75,6 +76,24 @@ class SubscriptionsComponent extends Component
         // $card->customer_id = $customer->id();
         // $card->save();
         return back()->withInput();
+    }
+
+    public function addTicket(SessionManager $session)
+    {
+        $this->validate([
+            'codigo' => 'required|exists:tickets',
+        ]);
+
+        //dd($this->codigo,session('amount'));
+        $this->ticketExists = true;
+        $session->put("amount", 4);
+    }
+
+    public function removeTicket(SessionManager $session)
+    {
+        $this->ticketExists = false;
+        $session->put("amount", $this->totalWithPorcent($this->ciclo->mes,$this->ciclo->porcentaje));
+
     }
 
     public function meses($mes)

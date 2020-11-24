@@ -24,15 +24,30 @@
                             </p>
                             <p class="text-grey-darker text-sm mt-5 mb-4 flex-initial">
                                 $ {{ $this->priceServiceWithPorcent($this->ciclo->porcentaje) }}<br>
-                                <strong>$ {{ $this->totalWithPorcent($this->ciclo->mes,$this->ciclo->porcentaje) }}</strong><br>
+                                <strong>$ {{ session('amount') }}</strong><br>
+                                {{-- <strong>$ {{ $this->totalWithPorcent($this->ciclo->mes,$this->ciclo->porcentaje) }}</strong><br> --}}
                                 <span class="{{ $this->ciclo->porcentaje > 0 ? 'text-red-600 font-semibold text-lg' : '' }}">{{ $this->ciclo->porcentaje }}%</span>
                             </p>
                         </div>
+                        @if($ticketExists)
+                        <div class="flex flex-wrap flex-row justify-around leading-tight p-2 ml-8 md:p-4">
+                            <p class="text-grey-darker text-sm mt-5 flex-initial">
+                               TICKET<br>
+                            </p>
+                            <p class="text-grey-darker text-sm mt-5 mb-4 flex-initial">
+                                <span class="font-semibold text-lg">-12%</span>
+                                <a href="#" class="text-red-600" title="Quitar Ticket" wire:click="removeTicket">X</a>
+                            </p>
+                        </div>
+                        @endif
                     </article>
-                    <form class="m-4 flex flex-col">
-                        <input class="rounded-l-lg p-4 border-t mr-0 border-b border-l  -gray-800 border-gray-200 bg-white" placeholder="Ticket De Descuento" required/>
-                        <button class="px-8 rounded-r-lg rounded-l-lg bg-yellow-400  text-gray-800 font-bold p-4 uppercase border-yellow-500 border-t border-b border-r" type="submit">Aplicar Ticket</button>
+                    @if(!$ticketExists)
+                    <form wire:submit.prevent="addTicket" method="POST" class="m-4 flex flex-col">
+                        <input class="rounded-l-lg p-4 border-t mr-0 border-b border-l  -gray-800 border-gray-200 bg-white" wire:model.defer="codigo" placeholder="Ticket De Descuento" required/>
+                        <x-jet-input-error for="codigo" class="mt-1 mb-1" />
+                        <button {{ $ticketExists ?? 'disabled' }} class="px-8 rounded-r-lg rounded-l-lg bg-blue-500 hover:bg-blue-700 text-white font-bold p-4 uppercase border-blue-500 border-t border-b border-r" type="submit">Aplicar Ticket</button>
                     </form>
+                    @endif
                   </div>
             </div> <!-- fin card productos -->
         </div>
