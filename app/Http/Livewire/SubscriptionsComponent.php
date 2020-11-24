@@ -8,6 +8,7 @@ use App\Models\Servicios;
 use MercadoPago\Customer;
 use Illuminate\Http\Request;
 use App\Models\CicloServicio;
+use App\Models\Ticket;
 use \Illuminate\Session\SessionManager;
 
 
@@ -84,15 +85,24 @@ class SubscriptionsComponent extends Component
             'codigo' => 'required|exists:tickets',
         ]);
 
-        //dd($this->codigo,session('amount'));
+        $ticket = Ticket::where('codigo',$this->codigo)->first();
+
         $this->ticketExists = true;
-        $session->put("amount", 4);
+
+        $session->put("amount", session('amount') - round(session('amount')*$ticket->monto/100,2));
+
+        $this->dispatchBrowserEvent('total', ['amount' => session('amount')]);
+
+        $this->reset('codigo');
     }
 
     public function removeTicket(SessionManager $session)
     {
         $this->ticketExists = false;
+
         $session->put("amount", $this->totalWithPorcent($this->ciclo->mes,$this->ciclo->porcentaje));
+
+        $this->dispatchBrowserEvent('total', ['amount' => session('amount')]);
 
     }
 

@@ -110,7 +110,7 @@
               data-public-key="TEST-6f22bafe-83c8-404d-8a82-87dc995920c0"
               data-transaction-amount="{{ session('amount') }}">
             </script> --}}
-                <input type="hidden" name="transactionAmount" id="amount" value="{{ session('amount') }}" />
+                <input type="hidden" name="transactionAmount" id="amount" value="{{ session('amount') }}"/>
                 <input type="hidden" name="paymentMethodId" id="paymentMethodId" />
                 <input type="hidden" name="description" id="description" />
                 <input type="hidden" name="issuer" id="issuer">

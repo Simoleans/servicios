@@ -1,6 +1,10 @@
 <div>
     <div class="grid grid-cols-1 w-full gap-1">
-        <div class="py-5" x-data="data()" >
+        <div class="py-5" x-data="data()" 
+            x-init="window.addEventListener('total', event => {
+                        let inputAmount = document.getElementById('amount');
+                        inputAmount.setAttribute('value', event.detail.amount);
+                    }) " >
             <!-- CARDS Productos -->
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
