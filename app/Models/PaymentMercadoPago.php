@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use MercadoPago;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PaymentMercadoPago extends Model
 {
@@ -35,14 +35,55 @@ class PaymentMercadoPago extends Model
         );
         $payment->save();
 
-        //dd($payment,$payment->id);
+        if ($payment->status == 'approved') {
+            self::create([
+                'payment_id' => $payment->id,
+                'payment_type_id' => $payment->payment_type_id,
+                'user_id' => auth()->user()->id,
+                'customer_id' => auth()->user()->customer->id,
+                'status_pago_mp' => $payment->status,
+            ]);
 
-        self::create([
-            'payment_id' => $payment->id,
-            'payment_type_id' => $payment->payment_type_id,
-            'user_id' => auth()->user()->id,
-            'customer_id' => auth()->user()->customer->id,
-            'status_pago_mp' => $payment->status,
-        ]);
+            Payment::create([
+                'user_id' => auth()->user()->id,
+                'servicio_id' => $request->servicio_id,
+                'ciclo_id' => $request->ciclo_id,
+                'ticket_id' => $request->ticket_id,
+                'monto' => $request->transactionAmount
+            ]);
+        }
+
+        return $payment;
+    }
+
+
+    public function message($status)
+    {
+        switch ($status) {
+            case 'pending_contingency':
+                return 'Estamos procesando tu pago. No te preocupes, menos de 2 días hábiles te avisaremos por e-mail si se acreditó.';
+                break;
+            case 'pending_review_manual':
+                return 'Estamos procesando tu pago. No te preocupes, menos de 2 días hábiles te avisaremos por e-mail si se acreditó o si necesitamos más información.';
+                break;
+            case 'cc_rejected_bad_filled_card_number':
+                return 'Revisa el número de tarjeta.';
+                break;
+            case 'cc_rejected_bad_filled_date':
+                return 'Revisa la fecha de vencimiento.';
+                break;
+            case 'cc_rejected_bad_filled_other':
+                return 'Revisa los datos.';
+                break;
+            case 'cc_rejected_bad_filled_security_code':
+                return 'Revisa el código de seguridad de la tarjeta.';
+                break;
+            case 'cc_rejected_max_attempts':
+                return 'Llegaste al límite de intentos permitidos. Elige otra tarjeta.';
+                break;
+            default:
+                return 'No se puede procesar tu pago.';
+                break;
+        }
     }
 }

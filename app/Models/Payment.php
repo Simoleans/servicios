@@ -14,7 +14,7 @@ class Payment extends Model
         'servicio_id',
         'ciclo_id',
         'producto_id',
-        'monto'.
+        'monto',
         'ticket_id'
     ];
 }

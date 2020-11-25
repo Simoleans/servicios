@@ -16,6 +16,7 @@ class SubscriptionsComponent extends Component
 {
     public $ciclo,$codigo;
     public $ticketExists = false;
+    public $porcentTicket;
     
 
     //pago
@@ -86,12 +87,13 @@ class SubscriptionsComponent extends Component
         ]);
 
         $ticket = Ticket::where('codigo',$this->codigo)->first();
+        $this->porcentTicket = $ticket->monto;
 
         $this->ticketExists = true;
 
         $session->put("amount", session('amount') - round(session('amount')*$ticket->monto/100,2));
 
-        $this->dispatchBrowserEvent('total', ['amount' => session('amount')]);
+        $this->dispatchBrowserEvent('total', ['amount' => round(session('amount')),'ticket' => $ticket->id]);
 
         $this->reset('codigo');
     }
@@ -102,7 +104,7 @@ class SubscriptionsComponent extends Component
 
         $session->put("amount", $this->totalWithPorcent($this->ciclo->mes,$this->ciclo->porcentaje));
 
-        $this->dispatchBrowserEvent('total', ['amount' => session('amount')]);
+        $this->dispatchBrowserEvent('total', ['amount' => round(session('amount')),'ticket' => null]);
 
     }
 

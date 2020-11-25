@@ -2,18 +2,17 @@
 
 namespace App\View\Components;
 
+use App\Models\CicloServicio;
 use Illuminate\View\Component;
 
 class FormMercadoPago extends Component
 {
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $ciclo;
+
+    public function __construct($ciclo)
     {
-        //
+        $this->ciclo = $ciclo;
+       
     }
 
     /**
@@ -23,6 +22,8 @@ class FormMercadoPago extends Component
      */
     public function render()
     {
-        return view('components.form-mercado-pago');
+        $servicio = CicloServicio::findOrfail($this->ciclo);
+        
+        return view('components.form-mercado-pago',['ciclo' => $this->ciclo,'servicio' => $servicio->servicio_id]);
     }
 }

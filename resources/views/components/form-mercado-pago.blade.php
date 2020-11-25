@@ -111,6 +111,9 @@
               data-transaction-amount="{{ session('amount') }}">
             </script> --}}
                 <input type="hidden" name="transactionAmount" id="amount" value="{{ session('amount') }}"/>
+                <input type="hidden" name="ticket_id" id="ticket_id" />
+                <input type="hidden" name="servicio_id" value="{{ $servicio }}">
+                <input type="hidden" name="ciclo_id" value="{{ $ciclo }}">
                 <input type="hidden" name="paymentMethodId" id="paymentMethodId" />
                 <input type="hidden" name="description" id="description" />
                 <input type="hidden" name="issuer" id="issuer">

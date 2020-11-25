@@ -3,11 +3,22 @@
         <div class="py-5" x-data="data()" 
             x-init="window.addEventListener('total', event => {
                         let inputAmount = document.getElementById('amount');
+                        let inputTicket = document.getElementById('ticket_id');
                         inputAmount.setAttribute('value', event.detail.amount);
+                        inputTicket.setAttribute('value', event.detail.ticket);
                     }) " >
             <!-- CARDS Productos -->
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+                    @if (session()->has('message'))
+                        <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
+                        <div class="flex">
+                            <div>
+                            <p class="text-sm">{{ session('message') }}</p>
+                            </div>
+                        </div>
+                        </div>
+                    @endif
                     <h1 class="font-extrabold">PLAN</h1>
                     <article class="inline overflow-hidden rounded-md shadow-md mt-4 sm:mt-5 md:mt-4">
                         <div class="flex items-center flex-col justify-between leading-tight p-2 md:p-4">
@@ -39,8 +50,8 @@
                                TICKET<br>
                             </p>
                             <p class="text-grey-darker text-sm mt-5 mb-4 flex-initial">
-                                <span class="font-semibold text-lg">-12%</span>
-                                <a href="#" class="text-red-600" title="Quitar Ticket" wire:click="removeTicket">X</a>
+                                <span class="font-semibold text-lg">-{{ $porcentTicket }}%</span>
+                                <button title="Quitar Ticket" wire:click="removeTicket" class="px-4 rounded-r-lg rounded-l-lg bg-red-500 hover:bg-red-700 text-white font-bold p-2 uppercase border-red-500 border-t border-b border-r">X</button>
                             </p>
                         </div>
                         @endif
