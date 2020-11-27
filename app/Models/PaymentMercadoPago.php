@@ -36,6 +36,7 @@ class PaymentMercadoPago extends Model
         $payment->save();
 
         if ($payment->status == 'approved') {
+
             self::create([
                 'payment_id' => $payment->id,
                 'payment_type_id' => $payment->payment_type_id,
@@ -44,13 +45,17 @@ class PaymentMercadoPago extends Model
                 'status_pago_mp' => $payment->status,
             ]);
 
-            Payment::create([
+            $pagoSystem = Payment::create([
                 'user_id' => auth()->user()->id,
                 'servicio_id' => $request->servicio_id,
                 'ciclo_id' => $request->ciclo_id,
                 'ticket_id' => $request->ticket_id,
                 'monto' => $request->transactionAmount
             ]);
+            
+            if ($pagoSystem) {
+                Subscriptions::storeSubscription($request);
+            }
         }
 
         return $payment;

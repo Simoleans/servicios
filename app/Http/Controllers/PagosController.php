@@ -5,20 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\CustomerMercadoPago;
 use App\Models\PaymentMercadoPago;
 use App\Models\Pagos\Pagos;
+use App\Models\Subscriptions;
 use MercadoPago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
 
 class PagosController extends Controller
 {
   public $customerMP;
   public $paymentMP;
+  public $subscription;
 
   function __construct() 
   {
     $this->customerMP = new CustomerMercadoPago();  
     $this->paymentMP = new PaymentMercadoPago();  
+    $this->subscription = new Subscriptions();
   }
 
   public function payment_mercadopago_index($slug,$ciclo)
@@ -36,7 +38,7 @@ class PagosController extends Controller
       //save paymentMP
       $payment = $this->paymentMP->store($request);
 
-
+      //$this->subscription->store();
       //store para el sistema
       // $customer_system = CustomerMercadoPago::create([
       //   'user_id' => auth()user()->id,
