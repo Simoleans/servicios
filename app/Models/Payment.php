@@ -17,4 +17,14 @@ class Payment extends Model
         'monto',
         'ticket_id'
     ];
+
+    public function servicio()
+    {
+        return $this->belongsTo(Servicios::class);
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class)->withDefault(['codigo' => 'N/T']);
+    }
 }
