@@ -10,6 +10,7 @@ use App\Http\Livewire\PaymentsUserComponent;
 use App\Http\Livewire\SaleServicioComponent;
 use App\Http\Livewire\SubscriptionsComponent;
 use App\Http\Livewire\ServiciosProductosComponent;
+use App\Http\Livewire\SubscriptionUserComponent;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -23,6 +24,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     //Route::get('/comprar/servicio/{slug}/{ciclo}', SubscriptionsComponent::class)->name('servicio.venta.payment');
     Route::get('ticket',TicketComponent::class)->name('ticket');
     Route::get('mis-pagos',PaymentsUserComponent::class)->name('mis-pagos');
+    Route::get('my-subscriptions',SubscriptionUserComponent::class)->name('my-subscriptions');
 });
 
 Route::get('/comprar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_mercadopago_index'])->name('payment_mercadopago_index');

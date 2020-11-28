@@ -59,5 +59,10 @@ class Subscriptions extends Model
             return $query->where('user_id',auth()->user()->id)->where('servicio_id',$servicio)->where('end_date','>=',Carbon::now()->format('Y-m-d'))->where('status',1);
         }
     }
+
+    public function servicio()
+    {
+        return $this->belongsTo(Servicios::class);
+    }
     
 }

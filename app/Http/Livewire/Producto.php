@@ -17,8 +17,6 @@ class Producto extends Component
 
     public function render()
     {
-        //$this->productos = ModelsProducto::paginate(10);
-
         return view('livewire.producto',['productos' => ModelsProducto::where('nombre','LIKE',"%{$this->search}%")->paginate(15)]);
     }
 

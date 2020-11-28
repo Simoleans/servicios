@@ -10,7 +10,7 @@
                   </div>
                 </div>
             @endif
-            <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar">
+            {{-- <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar"> --}}
             @if($pagos->count())
               <table class="table-fixed w-full">
                   <thead>
@@ -21,7 +21,7 @@
                           <th class="px-4 py-2">Monto</th>
                       </tr>
                   </thead>
-                  <tbody>
+                  <tbody class="text-center">
                       @foreach($pagos as $p)
                       <tr>
                           <td class="border px-4 py-2">{{ $loop->iteration }}</td>
@@ -29,7 +29,7 @@
                             {{ $p->servicio->nombre }}
                           </td>
                           <td class="border px-4 py-2">{{ $p->ticket->codigo }}</td>
-                          <td class="border px-4 py-2">{{ $p->monto }}</td>
+                          <td class="border px-4 py-2">${{ number_format($p->monto) }}</td>
                       </tr>
                       @endforeach
                   </tbody>
