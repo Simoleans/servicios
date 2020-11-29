@@ -27,8 +27,6 @@ class SubscriptionsComponent extends Component
 
     public function mount($slug,CicloServicio $ciclo, SessionManager $session)
     {
-       
-
         $this->ciclo = $ciclo;
         $this->servicio = Servicios::where('slug',$slug)->first();
 

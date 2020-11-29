@@ -82,4 +82,9 @@ class ProductoController extends Controller
     {
         //
     }
+
+    public function indexPayment($producto,$servicio)
+    {
+        return view('productos.payment',['producto' => $producto,'slug' => $servicio]);
+    }
 }

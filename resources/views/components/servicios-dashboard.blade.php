@@ -24,6 +24,7 @@
                         </svg>
                         Comprar
                 </a>
+                <img src="{{ asset('img/mp.jpg') }}" class="rounded-full h-8 w-25 mt-3">
                 <p class="text-sm text-gray-900 leading-sm mt-6">
                     {{ $s->descripcion_larga }}
                 </p>

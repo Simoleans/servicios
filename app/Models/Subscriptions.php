@@ -60,6 +60,11 @@ class Subscriptions extends Model
         }
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status',1);
+    }
+
     public function servicio()
     {
         return $this->belongsTo(Servicios::class);

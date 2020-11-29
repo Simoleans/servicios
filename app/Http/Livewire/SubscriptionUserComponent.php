@@ -12,7 +12,7 @@ class SubscriptionUserComponent extends Component
     {
         
         return view('livewire.subscription-user-component',[
-            'subscriptions' => auth()->user()->subscriptions()->whereHas('servicio', function ($query){
+            'subscriptions' => auth()->user()->subscriptions()->active()->whereHas('servicio', function ($query){
                 $query->where('nombre','LIKE',"%{$this->search}%")->orWhere('descripcion_larga','LIKE',"%{$this->search}%")->orderby('id','DESC');
             })->paginate(5)
             ])->layout('layouts.app',['header' => 'Mis Subscripciones']);

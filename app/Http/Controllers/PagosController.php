@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CustomerMercadoPago;
 use App\Models\PaymentMercadoPago;
 use App\Models\Pagos\Pagos;
+use App\Models\ProductoUser;
 use App\Models\Subscriptions;
 use MercadoPago;
 use Illuminate\Http\Request;
@@ -29,14 +30,39 @@ class PagosController extends Controller
   }
     public function payment_mercadopago(Request $request)
     {
-
+      if($request->producto_id != null)
+      {
+         $existsProduct = ProductoUser::where('user_id',auth()->user()->id)->where('producto_id',$request->producto_id)->exists();
+         if ($existsProduct) {
+            return redirect()->route('my-subscriptions')->with('message', 'Ya has comprado esté producto.');
+         }
+        
+      }
+      //dd($request->all());
        MercadoPago\SDK::setAccessToken(PaymentMercadoPago::TOKEN); // Either Production or SandBox AccessToken
        
       //customer va primero, el pago va asociado al customer (validando que si existe no lo hguarde)
       $this->customerMP->store($request->email);
 
       //save paymentMP
-      $payment = $this->paymentMP->store($request);
+      if(session("amount") < 1)
+      {
+        $this->paymentMP->store_free($request);
+
+        //session()->forget('amount');
+        return redirect()->route('my-subscriptions')->with('message', 'Su pago ha sido procesado.');
+        
+      }else{
+        $payment =  $this->paymentMP->store($request);
+         //session()->forget('amount');
+        //dd($payment);
+         if ($payment->status != 'approved') {
+          return redirect()->back()->with('message', $this->paymentMP->message($payment->status_detail));
+        }else{
+          return redirect()->route('my-subscriptions')->with('message', 'Su pago ha sido procesado.');
+        }
+      }
+      
 
       //$this->subscription->store();
       //store para el sistema
@@ -44,15 +70,7 @@ class PagosController extends Controller
       //   'user_id' => auth()user()->id,
       //   'customer_id' => 
       // ])
-
-     // dd($payment->status,$payment->status_detail);
-
-        if ($payment->status != 'approved') {
-          return redirect()->back()->with('message', $this->paymentMP->message($payment->status_detail));
-        }else{
-          return redirect()->route('dashboard')->with('message', 'Su pago ha sido procesado.');
-        }
-
+        
 
 //         $resp = Http::withHeaders([
 //             'Authorization' => 'Bearer TEST-2258135264899031-112100-6dd8301e50db089345c52f4b09002ea7-627662436',
@@ -68,4 +86,5 @@ class PagosController extends Controller
 
    
     }
+
 }

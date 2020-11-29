@@ -37,4 +37,9 @@ class ServicioProductos extends Model
     {
         return $this->belongsTo(Producto::class,);
     }
+
+    public function servicio()
+    {
+        return $this->belongsTo(Servicios::class,);
+    }
 }

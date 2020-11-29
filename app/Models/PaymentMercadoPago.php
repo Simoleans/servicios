@@ -24,6 +24,7 @@ class PaymentMercadoPago extends Model
 
     public function store($request)
     {
+        //dd(session('amount'));
         $payment = new  MercadoPago\Payment();
         $payment->transaction_amount = $request->transactionAmount;
         $payment->token = $request->token;
@@ -50,15 +51,50 @@ class PaymentMercadoPago extends Model
                 'servicio_id' => $request->servicio_id,
                 'ciclo_id' => $request->ciclo_id,
                 'ticket_id' => $request->ticket_id,
-                'monto' => $request->transactionAmount
+                'monto' => session('amount'),
+                'producto_id' => $request->producto_id
             ]);
             
-            if ($pagoSystem) {
-                Subscriptions::storeSubscription($request);
+            if ($request->producto_id == null) {
+                if ($pagoSystem) {
+                    Subscriptions::storeSubscription($request);
+                }
+            }else{
+                ProductoUser::create([
+                    'user_id' => auth()->user()->id,
+                    'producto_id' => $request->producto_id
+                ]);
             }
+            
         }
 
         return $payment;
+    }
+
+    public function store_free($request)
+    {
+        $pagoSystem = Payment::create([
+            'user_id' => auth()->user()->id,
+            'servicio_id' => $request->servicio_id,
+            'ciclo_id' => $request->ciclo_id,
+            'ticket_id' => $request->ticket_id,
+            'monto' => session('amount'),
+            'producto_id' => $request->producto_id
+        ]);
+        
+        if ($request->producto_id == null) {
+            if ($pagoSystem) {
+                Subscriptions::storeSubscription($request);
+            }
+        }else{
+            ProductoUser::create([
+                'user_id' => auth()->user()->id,
+                'producto_id' => $request->producto_id
+            ]);
+        }
+            
+
+        return true;
     }
 
 
