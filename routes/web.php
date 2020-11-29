@@ -28,6 +28,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('mis-pagos',PaymentsUserComponent::class)->name('mis-pagos');
     Route::get('my-subscriptions',SubscriptionUserComponent::class)->name('my-subscriptions');
     Route::get('my-products',ProductosCompradosComponent::class)->name('my-products');
+    Route::get('product/payment/{id}',[ProductoController::class,'indexPaymentProduct'])->name('payment-product');
     //Route::get('my-subscription/{slug}',ShowProductsSubscriptionsComponent::class)->name('my-subscriptions');
 });
 

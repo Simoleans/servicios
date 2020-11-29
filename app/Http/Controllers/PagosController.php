@@ -49,21 +49,21 @@ class PagosController extends Controller
       {
         $this->paymentMP->store_free($request);
 
-        //session()->forget('amount');
         return redirect()->route('my-subscriptions')->with('message', 'Su pago ha sido procesado.');
         
       }else{
         $payment =  $this->paymentMP->store($request);
-         //session()->forget('amount');
-        //dd($payment);
+         
          if ($payment->status != 'approved') {
           return redirect()->back()->with('message', $this->paymentMP->message($payment->status_detail));
         }else{
-          return redirect()->route('my-subscriptions')->with('message', 'Su pago ha sido procesado.');
+          if ($request->producto_id != null) {
+            return redirect()->route('my-products')->with('message', 'Su pago ha sido procesado.');
+          }else{
+            return redirect()->route('my-subscriptions')->with('message', 'Su pago ha sido procesado.');
+          }
         }
       }
-      
-
       //$this->subscription->store();
       //store para el sistema
       // $customer_system = CustomerMercadoPago::create([

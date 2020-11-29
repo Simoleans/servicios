@@ -12,28 +12,33 @@
             @endif
             {{-- <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar"> --}}
             @if($pagos->count())
-              <table class="table-fixed w-full">
-                  <thead>
-                      <tr class="bg-gray-100">
-                          <th class="px-4 py-2 w-20">No.</th>
-                          <th class="px-4 py-2">Servicio/Producto</th>
-                          <th class="px-4 py-2">Ticket Descuento</th>
-                          <th class="px-4 py-2">Monto</th>
-                      </tr>
-                  </thead>
-                  <tbody class="text-center">
-                      @foreach($pagos as $p)
-                      <tr>
-                          <td class="border px-4 py-2">{{ $loop->iteration }}</td>
-                          <td class="border px-4 py-2">
-                            {{ $p->servicio->nombre }}
-                          </td>
-                          <td class="border px-4 py-2">{{ $p->ticket->codigo }}</td>
-                          <td class="border px-4 py-2">${{ number_format($p->monto) }}</td>
-                      </tr>
-                      @endforeach
-                  </tbody>
-              </table>
+            <div class="overflow-auto">
+              <table class="table-auto w-full">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="px-4 py-2 w-20">No.</th>
+                        <th class="px-4 py-2 w-20">Tipo</th>
+                        <th class="px-4 py-2">Servicio/Producto</th>
+                        <th class="px-4 py-2">Ticket Descuento</th>
+                        <th class="px-4 py-2">Monto</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center sm:overflow-x-scroll">
+                    @foreach($pagos as $p)
+                    <tr>
+                        <td class="border px-4 py-2">{{ $loop->iteration }}</td>
+                        <td class="border px-2 py-2">{{ $p->servicio_id ? 'Servicio' : 'Producto' }}</td>
+                        <td class="border px-4 py-2">
+                          {{ $p->servicio->nombre ?? $p->producto->nombre }}
+                        </td>
+                        <td class="border px-4 py-2">{{ $p->ticket->codigo }}</td>
+                        <td class="border px-4 py-2">${{ number_format($p->monto) }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            </div>
+             
             <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
               {{ $pagos->links() }}
             </div>

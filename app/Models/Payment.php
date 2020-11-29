@@ -23,6 +23,11 @@ class Payment extends Model
         return $this->belongsTo(Servicios::class);
     }
 
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class);
+    }
+
     public function ticket()
     {
         return $this->belongsTo(Ticket::class)->withDefault(['codigo' => 'N/T']);

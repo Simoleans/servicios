@@ -12,14 +12,20 @@ class ProductPaymentComponent extends Component
 {
     public $ticketExists = false;
     public $servicio;
+    public $serviceProduct = null;
 
-    public function mount($slug,$producto, SessionManager $session)
+    public function mount($slug = null,$producto, SessionManager $session)
     {
         $this->producto = Producto::findOrfail($producto);
-        $this->servicio = Servicios::where('slug',$slug)->first();
-        $this->serviceProduct = ServicioProductos::where('servicio_id',$this->servicio->id)->where('producto_id',$producto)->first();
-        //dd(porcentSubscriptionProduct($this->producto->precio_normal,$this->serviceProduct->porcentaje));
-        $session->put("amount", porcentSubscriptionProduct($this->producto->precio_normal,$this->serviceProduct->porcentaje));
+        if ($slug != null) {
+            $this->servicio = Servicios::where('slug',$slug)->first();
+            $this->serviceProduct = ServicioProductos::where('servicio_id',$this->servicio->id)->where('producto_id',$producto)->first();
+
+            $session->put("amount", porcentSubscriptionProduct($this->producto->precio_normal,$this->serviceProduct->porcentaje));
+        }else{
+            $session->put("amount", $this->producto->precio_normal);
+        }
+        
     }
 
     public function render()

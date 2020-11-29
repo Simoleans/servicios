@@ -40,7 +40,7 @@
                             <p class="text-grey-darker text-sm mt-5 mb-4 flex-initial">
                                 {{-- $ {{ $this->priceServiceWithPorcent($this->ciclo->porcentaje) }}<br> --}}
                                 <strong>$ {{ session('amount') }}</strong><br>
-                                <strong>{{ $this->serviceProduct->porcentaje }} %</strong><br>
+                                <strong>{{ $this->serviceProduct == null ? 0 : $this->serviceProduct->porcentaje }} %</strong><br>
                                 {{-- <span class="{{ $this->ciclo->porcentaje > 0 ? 'text-red-600 font-semibold text-lg' : '' }}">{{ $this->ciclo->porcentaje }}%</span> --}}
                             </p>
                         </div>
