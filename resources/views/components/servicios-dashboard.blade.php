@@ -9,7 +9,7 @@
             <div class="flex items-center  flex-col justify-between leading-tight p-2 md:p-4">
                 <h1 class="text-lg">
                     <a class="no-underline hover:underline text-black" href="#">
-                    {{ $s->descripcion_larga }}
+                    {{ $s->nombre }}
                     </a>
                 </h1>
                 <p class="text-grey-darker text-3xl mt-5">
@@ -17,6 +17,9 @@
                 </p>
                 <p class="text-grey-darker line-through text-lg text-red-400 mb-4">
                     ${{ number_format($s->precio_rebajado,2,',','.') }}
+                </p>
+                <p class="text-grey-darker text-sm text-green-400 mb-4">
+                    Tiene {{ $s->productos->count() }} productos en oferta
                 </p>
                 <a href="{{ route('servicio.venta.show',$s->slug) }}" class="btn-buy-services  transform hover:-translate-y-1 motion-reduce:transition-none hover:scale-110 motion-reduce:transform-none hover:bg-blue-700">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">

@@ -16,7 +16,7 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Porcentaje de Descuento (%)
               </label>
-              <x-jet-input wire:model="porcentaje" type="text" pattern="\d*" maxlength="3" min="1" max="100" x-model="porcentaje"  x-bind:readonly="disabledField == true" placeholder="Nombre" required/>
+              <x-jet-input wire:model="porcentaje" type="text" pattern="\d*" maxlength="3" min="1" max="100" x-model="porcentaje"  x-bind:readonly="disabledField == true" placeholder="Porcentaje" required/>
               <x-jet-input-error for="porcentaje" class="mt-2" />
             </div>
             <div >

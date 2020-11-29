@@ -36,7 +36,7 @@
                                             Vencimiento
                                         </p>
                                         <p class="text-grey-darker text-2xl text-red-400 mb-4">
-                                            {{ $s->end_date->format('Y-m-d') }}
+                                            {{ $s->end_date->format('d-m-Y') }}
                                         </p>
                                         <a href="{{ route('my-store',$s->servicio->slug) }}" class="mt-3 btn-buy-services  transform hover:-translate-y-1 motion-reduce:transition-none hover:scale-110 motion-reduce:transform-none hover:bg-blue-700">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
