@@ -4,7 +4,7 @@
     </x-slot>
     <div x-data="data()">
         <livewire:subscriptions-component :ciclo="$ciclo" :slug="$slug" />
-        <x-form-mercado-pago :ciclo="$ciclo" />
+        <x-form-mercado-pago :ciclo="$ciclo" :renovated="$renovated" />
     </div>
 </x-app-layout>
 <script>

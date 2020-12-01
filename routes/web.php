@@ -23,7 +23,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('servicios',ServiciosComponent::class)->name('servicios');
     Route::get('/servicio/{servicio}', ServiciosProductosComponent::class)->name('servicio.show');
     Route::get('/comprar/servicio/{slug}', SaleServicioComponent::class)->name('servicio.venta.show');
-    //Route::get('/comprar/servicio/{slug}/{ciclo}', SubscriptionsComponent::class)->name('servicio.venta.payment');
+    Route::get('/renovar/servicio/{slug}', SaleServicioComponent::class)->name('servicio.renovar.show');
     Route::get('ticket',TicketComponent::class)->name('ticket');
     Route::get('mis-pagos',PaymentsUserComponent::class)->name('mis-pagos');
     Route::get('my-subscriptions',SubscriptionUserComponent::class)->name('my-subscriptions');
@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum', 'verified','subscription-tienda'])->group( fu
 });
 
 Route::get('/comprar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_mercadopago_index'])->name('payment_mercadopago_index');
+Route::get('/renovar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_renovar_mercadopago_index'])->name('payment_renovar_mercadopago_index');
 Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

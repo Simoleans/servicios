@@ -26,7 +26,12 @@ class PagosController extends Controller
 
   public function payment_mercadopago_index($slug,$ciclo)
   {
-    return view('servicios.payment',['slug' => $slug,'ciclo' => $ciclo]);
+    return view('servicios.payment',['slug' => $slug,'ciclo' => $ciclo,'renovated' => false]);
+  }
+
+  public function payment_renovar_mercadopago_index($slug,$ciclo)
+  {
+    return view('servicios.payment',['slug' => $slug,'ciclo' => $ciclo,'renovated' => true]);
   }
     public function payment_mercadopago(Request $request)
     {

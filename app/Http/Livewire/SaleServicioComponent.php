@@ -14,12 +14,12 @@ class SaleServicioComponent extends Component
     // Opreaciones
     public $porcentaje;
 
+    //options renovar-comprar
+    public $comprar = true;
+
     public function mount($slug)
     {
         $this->servicio = Servicios::where('slug',$slug)->first();
-
-        
-
     }
 
     public function render()

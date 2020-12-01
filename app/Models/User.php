@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscriptions::class);
     }
+
+    public function suscribedService($servicio)
+    {
+        return Subscriptions::where('user_id',$this->id)->where('servicio_id',$servicio)->exists();
+    }
 }

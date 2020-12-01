@@ -30,16 +30,8 @@ class Subscriptions extends Model
     {
         $ciclo = CicloServicio::findOrfail($request->ciclo_id);
 
-        $existsSubscription = self::searchSubscriptionToUserActive($request->servicio_id)->exists(); // verifico si tiene una subscripcion activa
-
-        // si ya tengo una verificacion activa, entonces le aumento la fecha de fin
-        if($existsSubscription)
-        {
-            
-            $servicioActivo = self::searchSubscriptionToUserActive($request->servicio_id)->first();
-            $servicioActivo->end_date = $servicioActivo->end_date->addMonths($ciclo->mes);
-            $servicioActivo->save();
-
+        if ($request->renovated == true) {
+            self::renovarSubscription($request);
         }else{
             self::create([
                 'user_id' => auth()->user()->id,
@@ -49,8 +41,24 @@ class Subscriptions extends Model
                 'end_date' => Carbon::now()->addMonths($ciclo->mes)
             ]);
         }
+       
+    }
 
-        
+    public static function renovarSubscription($request)
+    {
+        $ciclo = CicloServicio::findOrfail($request->ciclo_id);
+        $existsSubscription = self::searchSubscriptionToUserActive($request->servicio_id)->exists(); // verifico si tiene una subscripcion activa
+
+        // si ya tengo una verificacion activa, entonces le aumento la fecha de fin
+        if($existsSubscription)
+        {
+            $servicioActivo = self::searchSubscriptionToUserActive($request->servicio_id)->first();
+            $servicioActivo->end_date = $servicioActivo->end_date->addMonths($ciclo->mes);
+            $servicioActivo->save();
+
+        }else{
+            return false;
+        }
     }
 
     public function scopeSearchSubscriptionToUserActive($query,$servicio)

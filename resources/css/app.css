@@ -15,6 +15,10 @@ input {
     @apply transition  bg-green-500   rounded  justify-center w-full py-2 text-center text-white font-semibold duration-300  
 }
 
+.btn-renovar-services {
+    @apply transition  bg-blue-500   rounded  justify-center w-full py-2 text-center text-white font-semibold duration-300  
+}
+
 .btn-transition {
     @apply transition rounded justify-center w-full py-2 text-center text-white font-semibold duration-300  
 }

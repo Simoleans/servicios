@@ -13,6 +13,7 @@
                 <input type="hidden" name="description" id="description" />
                 <input type="hidden" name="issuer" id="issuer">
                 <input type="hidden" name="installments" id="installments">
+                <input type="hidden" name="renovated" value="{{ $renovated }}">
                 <div class="flex flex-wrap -mx-3 mb-6">
                   <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2" for="grid-first-name">

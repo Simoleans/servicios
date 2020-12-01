@@ -8,10 +8,12 @@ use Illuminate\View\Component;
 class FormMercadoPago extends Component
 {
     public $ciclo;
+    public $renovated;
 
-    public function __construct($ciclo)
+    public function __construct($ciclo,$renovated)
     {
         $this->ciclo = $ciclo;
+        $this->renovated = $renovated;
        
     }
 
@@ -24,6 +26,6 @@ class FormMercadoPago extends Component
     {
         $servicio = CicloServicio::findOrfail($this->ciclo);
         
-        return view('components.form-mercado-pago',['ciclo' => $this->ciclo,'servicio' => $servicio->servicio_id]);
+        return view('components.form-mercado-pago',['ciclo' => $this->ciclo,'servicio' => $servicio->servicio_id,'renovated' => $this->renovated]);
     }
 }
