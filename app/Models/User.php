@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
+use Carbon\Carbon;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -77,4 +78,20 @@ class User extends Authenticatable
     {
         return Subscriptions::where('user_id',$this->id)->where('servicio_id',$servicio)->exists();
     }
+
+
+    public function closestEndSubscription()
+    {
+        $subs = $this->subscriptions;
+        $date = date('Y-m-d');
+        $r = [];
+
+        foreach ($subs as $val) {
+           if (Carbon::parse($date)->diffInDays($val->end_date) <= 7) {
+               $r [] = $val->servicio->nombre;
+           }
+        }
+        return $r;
+    }
+    
 }

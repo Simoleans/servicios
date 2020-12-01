@@ -41,7 +41,6 @@ class Subscriptions extends Model
                 'end_date' => Carbon::now()->addMonths($ciclo->mes)
             ]);
         }
-       
     }
 
     public static function renovarSubscription($request)
