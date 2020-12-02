@@ -63,7 +63,7 @@ class Subscriptions extends Model
     public function scopeSearchSubscriptionToUserActive($query,$servicio)
     {
         if ($servicio) {
-            return $query->where('user_id',auth()->user()->id)->where('servicio_id',$servicio)->where('end_date','>=',Carbon::now()->format('Y-m-d'))->where('status',1);
+            return $query->where('user_id',auth()->user()->id)->where('servicio_id',$servicio)->where('status',1);
         }
     }
 

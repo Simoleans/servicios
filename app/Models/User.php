@@ -79,16 +79,39 @@ class User extends Authenticatable
         return Subscriptions::where('user_id',$this->id)->where('servicio_id',$servicio)->exists();
     }
 
+    public function serviceExpired($servicio)
+    {
+        return Subscriptions::where('user_id',$this->id)->where('servicio_id',$servicio)->where('end_date','<',date('Y-m-d'))->exists();
+    }
+
+    public function serviceExpiredQuery()
+    {
+        return $this->subscriptions()->where('user_id',$this->id)->where('end_date','<',date('Y-m-d'));
+    }
+
 
     public function closestEndSubscription()
     {
-        $subs = $this->subscriptions;
+        // dd($subs);
         $date = date('Y-m-d');
         $r = [];
 
-        foreach ($subs as $val) {
+        foreach ( $this->subscriptions as $val) {
            if (Carbon::parse($date)->diffInDays($val->end_date) <= 7) {
-               $r [] = $val->servicio->nombre;
+               $r[] = array('nombre' => $val->servicio->nombre,'slug' => $val->servicio->slug);
+           }
+        }
+        return $r;
+    }
+
+    public function expiredSubscription()
+    {
+        $subs = $this->subscriptions()->where('status',1)->get();
+        $date = date('Y-m-d');
+        $r = [];
+        foreach ($subs as $val) {
+           if (Carbon::parse($date)->greaterThanOrEqualTo($val->end_date)) {
+                $r[] = array('nombre' => $val->servicio->nombre,'slug' => $val->servicio->slug);
            }
         }
         return $r;

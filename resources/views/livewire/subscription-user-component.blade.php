@@ -41,6 +41,7 @@
                                         <p class="text-grey-darker text-sm text-green-400 mb-4">
                                             Tienes {{ $s->servicio->productos->count() }} productos en oferta
                                         </p>
+                                        @if(!auth()->user()->serviceExpired($s->servicio->id))
                                         <a href="{{ route('my-store',$s->servicio->slug) }}" class="mt-3 btn-buy-services  transform hover:-translate-y-1 motion-reduce:transition-none hover:scale-110 motion-reduce:transform-none hover:bg-blue-700">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
                                                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -48,12 +49,18 @@
                                                 </svg>
                                             Ver
                                         </a>
+                                        @endif
                                         <a href="{{ route('servicio.renovar.show',$s->servicio->slug) }}" class="mt-3 btn-renovar-services  transform hover:-translate-y-1 motion-reduce:transition-none hover:scale-110 motion-reduce:transform-none hover:bg-blue-700">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
                                             </svg>
                                             Renovar
                                         </a>
+                                        @if(auth()->user()->serviceExpired($s->servicio->id))
+                                            <p class="text-grey-darker text-sm text-red-400 mt-2">
+                                                Tienes subscripción vencida
+                                            </p>
+                                        @endif
                                         <p class="text-sm text-gray-900 leading-sm mt-6">
                                             {{ $s->servicio->descripcion_larga }}
                                         </p>
