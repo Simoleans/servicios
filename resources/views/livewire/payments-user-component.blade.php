@@ -10,7 +10,7 @@
                   </div>
                 </div>
             @endif
-            {{-- <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar"> --}}
+            <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar por Servicio/Producto">
             @if($pagos->count())
             <div class="overflow-auto">
               <table class="table-auto w-full">

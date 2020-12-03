@@ -32,4 +32,15 @@ class Payment extends Model
     {
         return $this->belongsTo(Ticket::class)->withDefault(['codigo' => 'N/T']);
     }
+
+    public function scopeAllSearch($query,$search)
+    {
+        if ($search) {
+            return $query->whereHas('servicio', function ($q) use ($search) {
+                $q->where('nombre','LIKE',"%{$search}%");
+            })->orWhereHas('producto', function ($q) use ($search) {
+                $q->where('nombre','LIKE',"%{$search}%");
+            });
+        }
+    }
 }
