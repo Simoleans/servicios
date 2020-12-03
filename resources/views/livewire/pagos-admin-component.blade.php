@@ -10,13 +10,14 @@
                   </div>
                 </div>
             @endif
-            <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar por servicio o producto">
+            <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar por Servicio|Producto|Email">
             @if($pagos->count())
             <div class="overflow-auto">
               <table class="table-auto w-full">
                 <thead>
                     <tr class="bg-gray-100">
                         <th class="px-4 py-2 w-20">No.</th>
+                        <th class="px-4 py-2 w-20">Email</th>
                         <th class="px-4 py-2 w-20">Tipo</th>
                         <th class="px-4 py-2">Servicio/Producto</th>
                         <th class="px-4 py-2">Ticket Descuento</th>
@@ -27,6 +28,7 @@
                     @foreach($pagos as $p)
                     <tr>
                         <td class="border px-4 py-2">{{ $loop->iteration }}</td>
+                        <td class="border px-4 py-2">{{ $p->user->email }}</td>
                         <td class="border px-2 py-2">{{ $p->servicio_id ? 'Servicio' : 'Producto' }}</td>
                         <td class="border px-4 py-2">
                           {{ $p->servicio->nombre ?? $p->producto->nombre }}

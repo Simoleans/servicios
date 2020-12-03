@@ -15,6 +15,6 @@ class PagosAdminComponent extends Component
 
     public function render()
     {
-        return view('livewire.pagos-admin-component',['pagos' => Payment::allSearch($this->search)->paginate(5)])->layout('layouts.app',['header' => 'Pagos']);
+        return view('livewire.pagos-admin-component',['pagos' => Payment::allSearchPayment($this->search)->paginate(5)])->layout('layouts.app',['header' => 'Pagos']);
     }
 }
