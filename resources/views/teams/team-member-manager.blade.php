@@ -30,7 +30,7 @@
                     <!-- Role -->
                     @if (count($this->roles) > 0)
                         <div class="col-span-6 lg:col-span-4">
-                            <x-jet-label for="role" value="{{ __('Role') }}" />
+                            <x-jet-label for="role" value="{{ __('Rol') }}" />
                             <x-jet-input-error for="role" class="mt-2" />
 
                             <div class="mt-1 border border-gray-200 rounded-lg cursor-pointer">

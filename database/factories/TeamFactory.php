@@ -23,7 +23,7 @@ class TeamFactory extends Factory
     {
         return [
             'user_id' => 1,
-            'name' => $this->faker->words(2, true),
+            'name' => 'Admin',
             'personal_team' => true,
         ];
     }

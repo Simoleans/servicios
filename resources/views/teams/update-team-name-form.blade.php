@@ -17,7 +17,7 @@
 
                 <div class="ml-4 leading-tight">
                     <div>{{ $team->owner->name }}</div>
-                    <div class="text-gray-700 text-sm">{{ $team->owner->email }}</div>
+                    {{-- <div class="text-gray-700 text-sm">{{ $team->owner->email }}</div> --}}
                 </div>
             </div>
         </div>
@@ -28,9 +28,9 @@
 
             <x-jet-input id="name"
                         type="text"
-                        class="mt-1 block w-full"
+                        class="mt-1 block w-full bg-gray-300"
                         wire:model.defer="state.name"
-                        :disabled="! Gate::check('update', $team)" />
+                        :disabled="! Gate::check('update', $team)" readonly />
 
             <x-jet-input-error for="name" class="mt-2" />
         </div>

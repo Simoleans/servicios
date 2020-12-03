@@ -116,5 +116,23 @@ class User extends Authenticatable
         }
         return $r;
     }
+
+    public function admin()
+    {
+        
+        $q = $this->allTeams();
+        $v = false;
+
+        foreach($q as $r) 
+        {
+            if ($r->name == 'Admin') {
+                $v = true;
+            }
+            
+        }
+
+        return $v;
+        
+    }
     
 }

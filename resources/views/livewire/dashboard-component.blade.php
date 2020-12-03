@@ -17,6 +17,8 @@
         </div>
         {{-- {{ dd(auth()->user()->closestEndSubscription()) }} --}}
       @endif
+      {{-- {{ dd(auth()->user()->ownsTeam(auth()->user()->currentTeam))  }} --}}
+      {{-- {{ dd(auth()->user()->rol())  }} --}}
       {{-- {{ dd(auth()->user()->expiredSubscription()) }} --}}
       @if(count(auth()->user()->expiredSubscription()) > 0)
         <div x-show.transition.duration.900ms.scale.0="openExpired" class="bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md my-2 bg-red-400 border-red-600" role="alert">
