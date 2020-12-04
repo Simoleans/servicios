@@ -14,6 +14,7 @@ class Producto extends Component
     public $search, $nombre, $descripcion_corta,$foto,$descripcion_larga,$precio_rebajado,$precio_normal;
     public $isOpen = 0;
     public $inputFoto = true;
+    
 
     public function render()
     {

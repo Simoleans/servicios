@@ -13,6 +13,6 @@ class PaymentsUserComponent extends Component
 
     public function render()
     {
-        return view('livewire.payments-user-component',['pagos' => auth()->user()->payments()->allSearch($this->search)->paginate(5)])->layout('layouts.app',['header' => 'Mis Pagos']);
+        return view('livewire.payments-user-component',['pagos' => auth()->user()->payments()->allSearchPayment($this->search)->paginate(5)])->layout('layouts.app',['header' => 'Mis Pagos']);
     }
 }

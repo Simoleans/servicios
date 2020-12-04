@@ -71,6 +71,11 @@
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link  href="{{ route('admin-support') }}" :active="request()->routeIs('admin-support')">
+                            {{ __('Ver Ticket de Soportes') }}
+                        </x-jet-nav-link>
+                    </div>
                     {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{ route('all-payments') }}" :active="request()->routeIs('all-payments')">
                             {{ __('Pagos') }}
@@ -110,6 +115,11 @@
                                 </x-jet-dropdown-link>
                         </x-slot>
                     </x-jet-dropdown>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link  href="{{ route('support') }}" :active="request()->routeIs('support')">
+                        {{ __('Soporte') }}
+                    </x-jet-nav-link>
                 </div>
                 <!-- fin user -->
                 {{-- <div class="hidden sm:flex sm:items-center sm:ml-6">

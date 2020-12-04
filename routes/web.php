@@ -7,6 +7,7 @@ use App\Http\Livewire\DashboardComponent;
 use App\Http\Livewire\ServiciosComponent;
 use App\Http\Livewire\PagosAdminComponent;
 use App\Http\Controllers\ProductoController;
+use App\Http\Livewire\AdminSupportComponent;
 use App\Http\Livewire\PaymentsUserComponent;
 use App\Http\Livewire\SaleServicioComponent;
 use App\Http\Livewire\SubscriptionsComponent;
@@ -14,6 +15,7 @@ use App\Http\Livewire\SubscriptionUserComponent;
 use App\Http\Livewire\ProductosCompradosComponent;
 use App\Http\Livewire\ServiciosProductosComponent;
 use App\Http\Livewire\ShowProductsSubscriptionsComponent;
+use App\Http\Livewire\SupportCustomerComponent;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -31,6 +33,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('my-products',ProductosCompradosComponent::class)->name('my-products');
     Route::get('product/payment/{id}',[ProductoController::class,'indexPaymentProduct'])->name('payment-product');
     Route::get('payments',PagosAdminComponent::class)->name('all-payments');
+    Route::get('support',SupportCustomerComponent::class)->name('support');
+    Route::get('admin-support',AdminSupportComponent::class)->name('admin-support');
     //Route::get('my-subscription/{slug}',ShowProductsSubscriptionsComponent::class)->name('my-subscriptions');
 });
 
