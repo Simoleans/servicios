@@ -62,7 +62,7 @@
                         <a class="bg-teal-600 justify-center py-2 text-center text-white font-semibold transition duration-300 hover:bg-teal-500" href="{{ route('servicio.show',$s->id) }}">
                             Agregar Producto
                         </a>
-                        <button wire:click="resetartodo" class="bg-red-600 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500">
+                        <button wire:click="delete({{ $s->id }})" class="bg-red-600 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500">
                             Eliminar
                         </button>
                         <button wire:click="edit({{ $s->id }})"  wire:loading.attr="disabled" class="bg-green-400 col-span-2 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-green-300">

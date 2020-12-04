@@ -32,12 +32,16 @@ class ServiciosComponent extends Component
     public $updateCiclo = false;
     public $servicio_id;
 
-
+    public function mount()
+    {
+        $this->servicios =  Servicios::where('status',1)->where('nombre','LIKE',"%{$this->search}%")->orWhere('descripcion_larga','LIKE',"%{$this->search}%")->orderby('id','DESC')->paginate(6);
+    }
     
     public function render()
     {
-        return view('livewire.servicios-component',['servicios' => Servicios::where('nombre','LIKE',"%{$this->search}%")->orWhere('descripcion_larga','LIKE',"%{$this->search}%")->orderby('id','DESC')->paginate(6)])
-               ->layout('layouts.app',['header' => 'Servicios']);
+        return view('livewire.servicios-component',[
+                'servicios' => $this->servivicios
+            ])->layout('layouts.app',['header' => 'Servicios']);
     }
 
     public function store()
@@ -106,6 +110,16 @@ class ServiciosComponent extends Component
         ]);
 
         $this->arrayFormCiclo = [];
+    }
+
+    public function delete($id)
+    {
+        $service = Servicios::findOrfail($id);
+        $service->status = 0;
+        $this->save();
+
+        session()->flash('message', 
+            'Servicio Eliminado Correctamente.');
     }
 
     public function closeModal()

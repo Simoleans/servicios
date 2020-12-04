@@ -20,6 +20,7 @@ class Servicios extends Model
         'dias_pruebas',
         'dias_suspender',
         'dias_notificar',
+        'status'
     ];
 
     public static function slugify($text)
