@@ -34,7 +34,7 @@
 
             @include('servicios.create')
               <div class="flex items-center border-b border-gray-900 py-2 w-full">
-                <input wire:model.debounce.300ms="search" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 pb-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Buscar" aria-label="Buscar">
+                <input wire:model.debounce.300ms="search" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 pb-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Buscar por Nombre" aria-label="Buscar">
                 <div class="pr-7">
                   <div  wire:loading wire:target="search"  class="spinner"></div>
                 </div>

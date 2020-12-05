@@ -32,15 +32,10 @@ class ServiciosComponent extends Component
     public $updateCiclo = false;
     public $servicio_id;
 
-    public function mount()
-    {
-        $this->servicios =  Servicios::where('status',1)->where('nombre','LIKE',"%{$this->search}%")->orWhere('descripcion_larga','LIKE',"%{$this->search}%")->orderby('id','DESC')->paginate(6);
-    }
-    
     public function render()
     {
         return view('livewire.servicios-component',[
-                'servicios' => $this->servivicios
+                'servicios' => Servicios::where('nombre','LIKE',"%{$this->search}%")->where('status',1)->orderby('id','DESC')->paginate(6)
             ])->layout('layouts.app',['header' => 'Servicios']);
     }
 
@@ -116,7 +111,7 @@ class ServiciosComponent extends Component
     {
         $service = Servicios::findOrfail($id);
         $service->status = 0;
-        $this->save();
+        $service->save();
 
         session()->flash('message', 
             'Servicio Eliminado Correctamente.');
