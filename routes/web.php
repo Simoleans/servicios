@@ -32,10 +32,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('my-subscriptions',SubscriptionUserComponent::class)->name('my-subscriptions');
     Route::get('my-products',ProductosCompradosComponent::class)->name('my-products');
     Route::get('product/payment/{id}',[ProductoController::class,'indexPaymentProduct'])->name('payment-product');
-    Route::get('payments',PagosAdminComponent::class)->name('all-payments');
-    Route::get('support',SupportCustomerComponent::class)->name('support');
-    Route::get('admin-support',AdminSupportComponent::class)->name('admin-support');
-    //Route::get('my-subscription/{slug}',ShowProductsSubscriptionsComponent::class)->name('my-subscriptions');
 });
 
 Route::middleware(['auth:sanctum', 'verified','subscription-tienda'])->group( function () {
@@ -43,16 +39,17 @@ Route::middleware(['auth:sanctum', 'verified','subscription-tienda'])->group( fu
     Route::get('my-product/subscription/{id}/{slug?}',[ProductoController::class,'indexPayment'])->name('payment-product-subscription');
 });
 
+Route::middleware(['auth:sanctum', 'verified','admin'])->group( function () {
+    Route::get('payments',PagosAdminComponent::class)->name('all-payments');
+    Route::get('support',SupportCustomerComponent::class)->name('support');
+    Route::get('admin-support',AdminSupportComponent::class)->name('admin-support');
+});
+
 Route::get('/comprar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_mercadopago_index'])->name('payment_mercadopago_index');
 Route::get('/renovar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_renovar_mercadopago_index'])->name('payment_renovar_mercadopago_index');
 Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-
 Route::resource('/productos',ProductoController::class);
-//Route::view('productos/lista', 'producto')->name('productos.lista');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/users', function () {
     return view('users');
