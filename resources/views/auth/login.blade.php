@@ -2,6 +2,7 @@
     <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
+            <span class="text-xl mt-4 font-bold">{{ nameApp() }}</span>
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -14,7 +15,6 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-
             <div>
                 <x-jet-label value="{{ __('Email') }}" />
                 <x-jet-input class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />

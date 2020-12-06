@@ -10,12 +10,13 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Livewire\AdminSupportComponent;
 use App\Http\Livewire\PaymentsUserComponent;
 use App\Http\Livewire\SaleServicioComponent;
+use App\Http\Livewire\ConfigurationComponent;
 use App\Http\Livewire\SubscriptionsComponent;
+use App\Http\Livewire\SupportCustomerComponent;
 use App\Http\Livewire\SubscriptionUserComponent;
 use App\Http\Livewire\ProductosCompradosComponent;
 use App\Http\Livewire\ServiciosProductosComponent;
 use App\Http\Livewire\ShowProductsSubscriptionsComponent;
-use App\Http\Livewire\SupportCustomerComponent;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -43,6 +44,7 @@ Route::middleware(['auth:sanctum', 'verified','admin'])->group( function () {
     Route::get('payments',PagosAdminComponent::class)->name('all-payments');
     Route::get('support',SupportCustomerComponent::class)->name('support');
     Route::get('admin-support',AdminSupportComponent::class)->name('admin-support');
+    Route::get('admin-config',ConfigurationComponent::class)->name('admin-config');
 });
 
 Route::get('/comprar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_mercadopago_index'])->name('payment_mercadopago_index');

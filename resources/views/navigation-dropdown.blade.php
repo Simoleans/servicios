@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
+                        {{-- <img class="w-15 h-15" src='{{ asset('storage/'.logoApp()) }}' alt="{{ nameApp() }}"> --}}
+                        <x-jet-application-mark/>
                     </a>
                 </div>
 
@@ -76,6 +77,11 @@
                             {{ __('Ver Ticket de Soportes') }}
                         </x-jet-nav-link>
                     </div>
+                    {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link  href="{{ route('admin-config') }}" :active="request()->routeIs('admin-config')">
+                            {{ __('Configuración') }}
+                        </x-jet-nav-link>
+                    </div> --}}
                     {{-- <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link  href="{{ route('all-payments') }}" :active="request()->routeIs('all-payments')">
                             {{ __('Pagos') }}
@@ -182,11 +188,11 @@
                     <x-slot name="content">
                         <!-- Account Management -->
                         <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Manage Account') }}
+                            {{ __('Cuenta') }}
                         </div>
 
                         <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                            {{ __('Profile') }}
+                            {{ __('Mi Perfil') }}
                         </x-jet-dropdown-link>
 
                         @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -197,22 +203,33 @@
 
                         <div class="border-t border-gray-100"></div>
 
+                        <div class="block px-4 py-2 text-xs text-gray-400">
+                            {{ __('Configuración') }}
+                        </div>
+
+                        <!-- Team Settings -->
+                        <x-jet-dropdown-link href="{{ route('admin-config') }}">
+                            {{ __('Configurar Aplicación') }}
+                        </x-jet-dropdown-link>
+
+                        <div class="border-t border-gray-100"></div>
+
                         <!-- Team Management -->
                         @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Team') }}
+                                {{ __('Administrar Admin') }}
                             </div>
 
                             <!-- Team Settings -->
                             <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                {{ __('Team Settings') }}
+                                {{ __('Configurar ROL') }}
                             </x-jet-dropdown-link>
 
-                            @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
+                            {{-- @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
                                 <x-jet-dropdown-link href="{{ route('teams.create') }}">
                                     {{ __('Create New Team') }}
                                 </x-jet-dropdown-link>
-                            @endcan
+                            @endcan --}}
 
                             <div class="border-t border-gray-100"></div>
 

@@ -15,11 +15,7 @@
                 <svg class="h-6 w-6 text-red"  @click="open = false" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
             </div>
         </div>
-        {{-- {{ dd(auth()->user()->closestEndSubscription()) }} --}}
       @endif
-      {{-- {{ dd(auth()->user()->ownsTeam(auth()->user()->currentTeam))  }} --}}
-      {{-- {{ dd(auth()->user()->rol())  }} --}}
-      {{-- {{ dd(auth()->user()->expiredSubscription()) }} --}}
       @if(count(auth()->user()->expiredSubscription()) > 0)
         <div x-show.transition.duration.900ms.scale.0="openExpired" class="bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md my-2 bg-red-400 border-red-600" role="alert">
             <div class="flex justify-between">
@@ -49,8 +45,6 @@
                         </div>
                     </div>
                 @endif
-               {{--  <x-jet-welcome /> --}}
-                {{-- <x-form-mercado-pago></x-form-mercado-pago> --}}
                 <div class="container mx-auto px-4 py-4">
                     <div class="flex items-center border-b border-gray-900 py-2 w-full">
                         <input wire:model.debounce.300ms="search" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 pb-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Buscar" aria-label="Buscar">
