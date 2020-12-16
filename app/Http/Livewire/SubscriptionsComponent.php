@@ -3,12 +3,13 @@
 namespace App\Http\Livewire;
 
 use MercadoPago;
+use Carbon\Carbon;
+use App\Models\Ticket;
 use Livewire\Component;
 use App\Models\Servicios;
 use MercadoPago\Customer;
 use Illuminate\Http\Request;
 use App\Models\CicloServicio;
-use App\Models\Ticket;
 use \Illuminate\Session\SessionManager;
 
 
@@ -83,8 +84,13 @@ class SubscriptionsComponent extends Component
         $this->validate([
             'codigo' => 'required|exists:tickets',
         ]);
-
+        
         $ticket = Ticket::where('codigo',$this->codigo)->first();
+
+        if ($this->activeTicket($ticket->codigo)) {
+            return $this->addError('codigo', 'El ticket está vencido.');
+        }
+
         $this->porcentTicket = $ticket->monto;
 
         $this->ticketExists = true;
@@ -94,6 +100,15 @@ class SubscriptionsComponent extends Component
         $this->dispatchBrowserEvent('total', ['amount' => round(session('amount')),'ticket' => $ticket->id]);
 
         $this->reset('codigo');
+    }
+
+    public function activeTicket($codigo)
+    {
+        $ticket = Ticket::where('codigo',$this->codigo)->first();
+
+        return Carbon::now()->greaterThan($ticket->fecha_exp);
+            
+
     }
 
     public function removeTicket(SessionManager $session)

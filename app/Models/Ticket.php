@@ -15,4 +15,8 @@ class Ticket extends Model
         'tipo',
         'monto',
     ];
+
+    protected $casts = [
+        'fecha_exp' => 'date',
+    ];
 }
