@@ -24,6 +24,7 @@ class SaleServicioComponent extends Component
 
     public function render()
     {
+        
         return view('livewire.sale-servicio-component',[
                 'servicio' => $this->servicio
         ])->layout('layouts.app',['header' => "Planes | {$this->servicio->nombre}"]);

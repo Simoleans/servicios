@@ -26,14 +26,22 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/dashboard',DashboardComponent::class)->name('dashboard');
     Route::get('servicios',ServiciosComponent::class)->name('servicios');
     Route::get('/servicio/{servicio}', ServiciosProductosComponent::class)->name('servicio.show');
-    Route::get('/comprar/servicio/{slug}', SaleServicioComponent::class)->name('servicio.venta.show');
+   
     Route::get('/renovar/servicio/{slug}', SaleServicioComponent::class)->name('servicio.renovar.show');
     Route::get('ticket',TicketComponent::class)->name('ticket');
     Route::get('mis-pagos',PaymentsUserComponent::class)->name('mis-pagos');
     Route::get('my-subscriptions',SubscriptionUserComponent::class)->name('my-subscriptions');
     Route::get('my-products',ProductosCompradosComponent::class)->name('my-products');
     Route::get('product/payment/{id}',[ProductoController::class,'indexPaymentProduct'])->name('payment-product');
+
+    Route::get('/comprar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_mercadopago_index'])->name('payment_mercadopago_index');
+    Route::get('/renovar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_renovar_mercadopago_index'])->name('payment_renovar_mercadopago_index');
+    Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
+
+    Route::resource('/productos',ProductoController::class);
 });
+
+Route::get('/comprar/servicio/{slug}', SaleServicioComponent::class)->name('servicio.venta.show');
 
 Route::middleware(['auth:sanctum', 'verified','subscription-tienda'])->group( function () {
     Route::get('my-subscription/{slug}',ShowProductsSubscriptionsComponent::class)->name('my-store');
@@ -47,11 +55,7 @@ Route::middleware(['auth:sanctum', 'verified','admin'])->group( function () {
     Route::get('admin-config',ConfigurationComponent::class)->name('admin-config');
 });
 
-Route::get('/comprar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_mercadopago_index'])->name('payment_mercadopago_index');
-Route::get('/renovar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_renovar_mercadopago_index'])->name('payment_renovar_mercadopago_index');
-Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
 
-Route::resource('/productos',ProductoController::class);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/users', function () {
     return view('users');
