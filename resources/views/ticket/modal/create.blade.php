@@ -34,7 +34,7 @@
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 Fecha de Expedición
               </label>
-              <x-jet-input type="date" wire:model.defer="fecha_exp" />
+              <x-jet-input type="date" min="{{ \Carbon\Carbon::today()->addDay()->format('Y-m-d') }}" wire:model.defer="fecha_exp" />
               <x-jet-input-error for="fecha_exp" class="mt-2" />
             </div>
         </div>
