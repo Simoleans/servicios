@@ -38,15 +38,18 @@
         [x-cloak] { display: none; }
     </style>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 dark:bg-gray-800" x-data="dark()" x-init="init()">
             @livewire('navigation-dropdown')
 
             <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight capitalize">
+            <header class="bg-white dark:bg-gray-500 shadow">
+                <div class=" flex justify-between max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-semibold dark:text-white text-xl text-gray-800 leading-tight capitalize">
                         {{ $header }}
                     </h2>
+                     <button class="p-1 rounded bg-gray-200" @click="activateDArkMode">
+                        <svg class="w-6 h-6 text-black dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
                 </div>
             </header>
 
@@ -64,4 +67,33 @@
         @livewireScripts
         
     </body>
+    <script>
+         function dark()
+        {
+            return {
+                init() {
+                    if (localStorage.theme === 'dark' || (!'theme' in localStorage && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                        checkedDarkMode = true;
+                        document.querySelector('html').classList.add('dark')
+                    } else if (localStorage.theme === 'dark') {
+                        checkedDarkMode = false;
+                        document.querySelector('html').classList.add('dark')
+                    }
+                },
+                activateDArkMode() {
+                    let htmlClasses = document.querySelector('html').classList;
+        
+                    if(localStorage.theme == 'dark') {
+                      checkedDarkMode = false;
+                        htmlClasses.remove('dark');
+                        localStorage.removeItem('theme')
+                    } else {
+                      checkedDarkMode = true;
+                        htmlClasses.add('dark');
+                        localStorage.theme = 'dark';
+                    }
+                }
+            }
+        }
+    </script>
 </html>

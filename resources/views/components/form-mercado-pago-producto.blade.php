@@ -1,8 +1,22 @@
-<div class="py-5" >
+<div class="py-5" x-data="main()">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
             <h1 class="font-extrabold">PAGAR</h1>
             <div class="bg-white rounded-lg p-6">
+              <div class="max-w-md mx-auto bg-blue-400 rounded-lg overflow-hidden md:max-w-sm mb-4 hover:bg-blue-600">
+                <div class="md:flex">
+                    <div class="w-full p-4">
+                        <div class="flex justify-between items-center text-white"> <span class="text-3xl font-bold">${{ session('amount') }}<small class="text-sm font-light"></small></span> <i class="fa fa-chevron-circle-up fa-2x text-gray-300"></i> </div>
+                        <div class="flex justify-between items-center mt-10">
+                            <h2 x-text="n_card" class="text-xl text-white font-extrabold tracking-widest"></h2>
+                        </div>
+                        <div class="mt-8 flex justify-between items-center text-white">
+                            <div class="flex flex-col"> <span class="font-bold text-gray-300 text-sm">Titular</span> <span class="font-bold" x-text="name"></span> </div>
+                            <div class="flex flex-col"> <img src="https://img.icons8.com/offices/80/000000/sim-card-chip.png" width="48" /> </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
                 <form class="max-w-full max-w-lg"  action="{{ route('pagos.payment') }}" method="POST" id="paymentForm">
                 @csrf
                   <input type="hidden" name="transactionAmount" id="amount" value="{{ session('amount') }}"/>
@@ -46,7 +60,7 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                       titular
                     </label>
-                    <input class="form-input w-full" id="cardholderName" data-checkout="cardholderName" type="text">
+                    <input x-model="name" class="form-input w-full" id="cardholderName" data-checkout="cardholderName" type="text">
                   </div>
                   <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
@@ -68,7 +82,7 @@
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cardNumber">
                       Número de la tarjeta
                     </label>
-                    <input class="form-input w-full input-background" id="cardNumber" data-checkout="cardNumber"
+                    <input x-model="n_card" class="form-input w-full input-background" id="cardNumber" data-checkout="cardNumber"
                                     onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text">
                   </div>
                   <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -105,6 +119,16 @@
         </div>
     </div> <!-- fin card productos -->
   </div>
+  <script>
+   function main(){
+    return {
+      n_card : '',
+      name: '',
+      year : '',
+      month: ''
+    }
+   }
+</script>
   
   
   

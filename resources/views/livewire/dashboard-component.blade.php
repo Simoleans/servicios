@@ -32,7 +32,7 @@
             </div>
         </div>
       @endif
-    <h1 class="font-extrabold text-5xl mx-1 my-1 text-center">SERVICIOS DISPONIBLES</h1>
+    <h1 class="font-extrabold text-5xl mx-1 my-1 text-center dark:text-white">SERVICIOS DISPONIBLES</h1>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div> 
-    <h1 class="font-extrabold text-5xl mx-1 my-1 text-center">PRODUCTOS DISPONIBLES</h1>
+    <h1 class="font-extrabold text-5xl mx-1 my-1 text-center dark:text-white">PRODUCTOS DISPONIBLES</h1>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">

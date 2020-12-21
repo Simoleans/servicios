@@ -6,7 +6,7 @@ module.exports = {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-
+    darkMode: 'class',
     theme: {
         extend: {
             fontFamily: {
@@ -31,6 +31,6 @@ module.exports = {
         gridTemplateColumns: ['responsive', 'hover', 'focus'],
     },
 
-    plugins: [require('@tailwindcss/ui'), require('tailwindcss-spinner')],
+    plugins: [require('tailwindcss-spinner')],
             
 };

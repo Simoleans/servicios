@@ -1,1 +1,1 @@
-<img class="w-15 h-15" src='{{ asset(logoApp()) }}' alt="{{ nameApp() }}">
+<img class="h-8 w-auto" src='{{ asset(logoApp()) }}' alt="{{ nameApp() }}">
