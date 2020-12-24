@@ -3,12 +3,12 @@
     @foreach($servicios as $s)
         <!-- Article -->
         <article class="inline overflow-hidden rounded-md shadow-xl mt-4 sm:mt-5 md:mt-4">
-            <a href="#">
-                <img alt="Placeholder" class="block h-auto w-full" src="{{asset('storage/'.$s->foto)}}">
+            <a href="{{ route('servicio.venta.show',$s->slug) }}">
+                <img alt="{{ $s->nombre }}" class="block h-auto w-full" src="{{asset('storage/'.$s->foto)}}">
             </a>
             <div class="flex items-center  flex-col justify-between leading-tight p-2 md:p-4">
                 <h1 class="text-lg">
-                    <a class="no-underline hover:underline text-black" href="#">
+                    <a class="no-underline hover:underline text-black" href="{{ route('servicio.venta.show',$s->slug) }}">
                     {{ $s->nombre }}
                     </a>
                 </h1>
@@ -35,21 +35,6 @@
                         Renovar
                     </a>
                 @endif
-                <img src="{{ asset('img/mp.jpg') }}" class="rounded-full h-8 w-25 mt-3">
-                <p class="text-sm text-gray-900 leading-sm mt-6">
-                    {{ $s->descripcion_larga }}
-                </p>
-                <div class="text-sm text-left text-gray-900 leading-sm mt-6">
-                    <ul>
-                        @foreach($s->ciclos as $c)
-                            <li class="mt-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="w-6 h-6 inline-block mr-1 text-green-700" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            {{ $this->meses($c->mes) }}</li>
-                        @endforeach
-                    </ul>
-                </div>
             </div>
         </article>
     @endforeach

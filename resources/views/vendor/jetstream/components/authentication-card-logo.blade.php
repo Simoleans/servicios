@@ -1,3 +1,3 @@
 <a href="/">
-    <img class="w-16 h-16" src='{{ asset(logoApp()) }}' alt="{{ nameApp() }}">
+    <img width="400" height="400" src='{{ asset(logoApp()) }}' alt="{{ nameApp() }}">
 </a>

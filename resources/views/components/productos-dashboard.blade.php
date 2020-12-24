@@ -3,12 +3,12 @@
     @foreach($productos as $p)
         <!-- Article -->
         <article class="inline overflow-hidden rounded-md shadow-xl mt-4 sm:mt-5 md:mt-4">
-            <a href="#">
+            <a href="{{ route('payment-product',['id' => $p->id]) }}">
                 <img alt="Placeholder" class="block h-auto w-full" src="{{asset('storage/'.$p->foto)}}">
             </a>
             <div class="flex items-center  flex-col justify-between leading-tight p-2 md:p-4">
                 <h1 class="text-lg">
-                    <a class="no-underline hover:underline text-black" href="#">
+                    <a class="no-underline hover:underline text-black" href="{{ route('payment-product',['id' => $p->id]) }}">
                     {{ $p->descripcion_larga }}
                     </a>
                 </h1>

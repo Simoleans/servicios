@@ -41,7 +41,6 @@ class ServiciosComponent extends Component
 
     public function store()
     {
-        //dd($this->mes);
         $this->validate([
             'nombre' => 'required|unique:productos',
             'descripcion_corta' => 'required',
