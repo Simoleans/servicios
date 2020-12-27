@@ -26,3 +26,7 @@ input {
 .spinner{
     position: absolute;
 }
+
+.container {
+	@apply dark:bg-gray-800 dark:text-white;
+}

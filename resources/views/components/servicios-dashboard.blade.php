@@ -2,13 +2,13 @@
 <div class="md:grid md:grid-cols-4 grid grid-cols-1 mt-3 gap-4">
     @foreach($servicios as $s)
         <!-- Article -->
-        <article class="inline overflow-hidden rounded-md shadow-xl mt-4 sm:mt-5 md:mt-4">
+        <article class="inline overflow-hidden rounded-md shadow-xl mt-4 sm:mt-5 md:mt-4 dark:text-white border-2 border-white">
             <a href="{{ route('servicio.venta.show',$s->slug) }}">
                 <img alt="{{ $s->nombre }}" class="block h-auto w-full" src="{{asset('storage/'.$s->foto)}}">
             </a>
             <div class="flex items-center  flex-col justify-between leading-tight p-2 md:p-4">
                 <h1 class="text-lg">
-                    <a class="no-underline hover:underline text-black" href="{{ route('servicio.venta.show',$s->slug) }}">
+                    <a class="no-underline hover:underline text-black dark:text-white" href="{{ route('servicio.venta.show',$s->slug) }}">
                     {{ $s->nombre }}
                     </a>
                 </h1>
@@ -39,7 +39,7 @@
         </article>
     @endforeach
 </div>
-<div class="bg-white px-4 py-3 border-t mt-4 border-gray-200 sm:px-6">
+<div class="dark:bg-gray-800 bg-white  px-4 py-3 border-t mt-4 border-gray-200 sm:px-6">
     {{ $servicios->appends(['productos' => $productos->currentPage()])->links() }}
 </div>
 @else

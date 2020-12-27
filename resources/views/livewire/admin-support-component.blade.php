@@ -1,6 +1,6 @@
-<div class="py-12">
+<div class="py-12 ">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 dark:bg-gray-800 border-2 border-white">
             <div class="grid grid-cols-1 md:grid-cols-4 ">
                 <div class="text-gray-700 bg-white border border-gray-600 rounded px-2 py-2 m-2 w-full">
                     <div class="overflow-auto overflow-y-auto " style="height: 28rem">

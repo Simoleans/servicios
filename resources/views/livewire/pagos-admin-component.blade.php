@@ -1,6 +1,6 @@
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 border-2 border-white dark:bg-gray-800">
             @if (session()->has('message'))
                 <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
                   <div class="flex">
@@ -10,12 +10,12 @@
                   </div>
                 </div>
             @endif
-            <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar por Servicio|Producto|Email">
+            <input class="form-input rounded-md shadow-sm mt-1 block w-full dark:bg-gray-800" type="text" wire:model="search" placeholder="Buscar por Servicio|Producto|Email">
             @if($pagos->count())
             <div class="overflow-auto">
               <table class="table-auto w-full">
                 <thead>
-                    <tr class="bg-gray-100">
+                    <tr class="bg-gray-100 dark:bg-gray-800">
                         <th class="px-4 py-2 w-20">No.</th>
                         <th class="px-4 py-2 w-20">Email</th>
                         <th class="px-4 py-2 w-20">Tipo</th>

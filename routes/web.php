@@ -39,6 +39,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
 
     Route::resource('/productos',ProductoController::class);
+    Route::get('support',SupportCustomerComponent::class)->name('support');
 });
 
 Route::get('/comprar/servicio/{slug}', SaleServicioComponent::class)->name('servicio.venta.show');
@@ -50,7 +51,6 @@ Route::middleware(['auth:sanctum', 'verified','subscription-tienda'])->group( fu
 
 Route::middleware(['auth:sanctum', 'verified','admin'])->group( function () {
     Route::get('payments',PagosAdminComponent::class)->name('all-payments');
-    Route::get('support',SupportCustomerComponent::class)->name('support');
     Route::get('admin-support',AdminSupportComponent::class)->name('admin-support');
     Route::get('admin-config',ConfigurationComponent::class)->name('admin-config');
 });

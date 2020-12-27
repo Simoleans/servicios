@@ -2,13 +2,13 @@
 <div class="md:grid md:grid-cols-3 grid grid-cols-1 mt-3 gap-4">
     @foreach($productos as $p)
         <!-- Article -->
-        <article class="inline overflow-hidden rounded-md shadow-xl mt-4 sm:mt-5 md:mt-4">
+        <article class="inline overflow-hidden rounded-md shadow-xl mt-4 sm:mt-5 md:mt-4 border-white border-2">
             <a href="{{ route('payment-product',['id' => $p->id]) }}">
                 <img alt="Placeholder" class="block h-auto w-full" src="{{asset('storage/'.$p->foto)}}">
             </a>
             <div class="flex items-center  flex-col justify-between leading-tight p-2 md:p-4">
                 <h1 class="text-lg">
-                    <a class="no-underline hover:underline text-black" href="{{ route('payment-product',['id' => $p->id]) }}">
+                    <a class="no-underline hover:underline text-black dark:text-white" href="{{ route('payment-product',['id' => $p->id]) }}">
                     {{ $p->descripcion_larga }}
                     </a>
                 </h1>
@@ -24,15 +24,11 @@
                     </svg>
                     Comprar
                 </a>
-                <img src="{{ asset('img/mp.jpg') }}" class="rounded-full h-8 w-25 mt-3">
-                <p class="text-sm text-gray-900 leading-sm mt-6">
-                    {{ $p->descripcion_larga }}
-                </p>
             </div>
         </article>
     @endforeach
 </div>
-<div class="bg-white px-4 py-3 border-t mt-4 border-gray-200 sm:px-6">
+<div class="dark:bg-gray-800 bg-white  px-4 py-3 border-t mt-4 border-gray-200 sm:px-6">
     {{ $productos->appends(['servicios' => $servicios->currentPage()])->links() }}
 </div>
 @else

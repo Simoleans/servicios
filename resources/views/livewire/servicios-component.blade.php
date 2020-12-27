@@ -19,7 +19,7 @@
                                                   x-transition:leave="ease-in duration-200"
                                                   x-transition:leave-start="opacity-100"
                                                   x-transition:leave-end="opacity-0">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 dark:bg-gray-800 border-2 border-white">
             @if (session()->has('message'))
                 <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
                   <div class="flex">
@@ -33,8 +33,8 @@
             <button x-on:click="showCreate = false" x-cloak x-show="showCreate == true" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded my-3">Cerrar Formulario</button>
 
             @include('servicios.create')
-              <div class="flex items-center border-b border-gray-900 py-2 w-full">
-                <input wire:model.debounce.300ms="search" class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 pb-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Buscar por Nombre" aria-label="Buscar">
+              <div class="flex items-center border-b border-gray-900 dark:border-white py-2 w-full">
+                <input wire:model.debounce.300ms="search" class="appearance-none bg-transparent border-none w-full text-gray-700 dark:text-white mr-3 pb-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Buscar por Nombre" aria-label="Buscar">
                 <div class="pr-7">
                   <div  wire:loading wire:target="search"  class="spinner"></div>
                 </div>
@@ -43,16 +43,16 @@
             @if($servicios->count())
               <div class="md:grid grid-cols-3 mt-3 gap-4">
                 @foreach($servicios as $s)
-                  <div class="wrapper max-w-xs bg-gray-50 rounded-b-md shadow-lg mb-2">
+                  <div class="wrapper max-w-xs bg-gray-50 dark:bg-gray-800 rounded-b-md shadow-lg mb-2 border-2 border-white">
                      <div>
                         <img class="object-cover h-60 w-full" src="{{asset('storage/'.$s->foto)}}" alt="{{ $s->slug }}" />
                      </div>
                      <div class="p-3 space-y-3">
-                        <h3 class="text-gray-700 font-semibold text-md">
+                        <h3 class="text-gray-700 font-semibold text-md dark:text-white">
                            {{ $s->nombre }}
                         </h3>
-                        <p class="text-sm text-gray-900 leading-sm">
-                           {{ $s->descripcion_larga }}
+                        <p class="text-sm text-gray-900 leading-sm dark:text-white">
+                           {{ substr($s->descripcion_larga,0,75) }}
                         </p>
                      </div>
                      <div class=" pt-4 pb-2">
