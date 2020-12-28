@@ -1,8 +1,8 @@
 <div class="py-5" x-data="main()">
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4">
+      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 dark:bg-gray-800 border-2 border-white">
           <h1 class="font-extrabold">PAGAR</h1>
-          <div class="bg-white rounded-lg p-6">
+          <div class="rounded-lg p-6">
               <form action="{{ route('pagos.payment') }}" method="POST" id="paymentForm">
               @csrf
                 <input type="hidden" name="transactionAmount" id="amount" value="{{ session('amount') }}"/>
@@ -16,24 +16,23 @@
                 <input type="hidden" name="renovated" value="{{ $renovated }}">
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                      <label class="block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2" for="grid-first-name">
+                      <label class="block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2 dark:text-white" for="grid-first-name">
                         Email
                       </label>
                       <input class="form-input w-full bg-gray-300" readonly value="{{ auth()->user()->email }}" id="email" type="text" name="email">
                     </div>
                     <div class="w-full md:w-1/3 px-3">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                      <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-last-name">
                         Tipo de documento
                       </label>
-                      <select class=" block bg-gray-200 border-transparent rounded-md p-3 focus:border-gray-500 focus:bg-white focus:ring-0 w-full mb-6" id="docType" name="docType" data-checkout="docType" type="text" required="">
-                            <option>Seleccione...</option>
-                          <option>RUT</option>
-                          <option>Otro</option>
-                        </select>
-                        
+                      <select class="block bg-gray-200 border-transparent rounded-md p-3 focus:border-gray-500 focus:bg-white focus:ring-0 w-full mb-6" id="docType" name="docType" data-checkout="docType" type="text" required="">
+                        <option>Seleccione...</option>
+                        <option>RUT</option>
+                        <option>Otro</option>
+                      </select>
                     </div>
                     <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                      <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
                         Número de documento
                       </label>
                       <input class="form-input w-full" id="docNumber" name="docNumber" data-checkout="docNumber" type="text">
@@ -56,24 +55,23 @@
                       </div>
                     </div>
                     <!-- fin tarjeta-->
-
                    <div class="flex flex-col flex-1">
                      <div class="flex flex-col md:flex-row">
                         <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                          <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
                             titular
                           </label>
                           <input class="form-input w-full" id="cardholderName" x-model="name" data-checkout="cardholderName" type="text">
                         </div>
                         <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                          <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
                             MES
                           </label>
                           <input x-model="month" class="form-input w-full" placeholder="MM" id="cardExpirationMonth" data-checkout="cardExpirationMonth"
                                             onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text">
                         </div>
                         <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                          <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
                             AÑO
                           </label>
                           <input x-model="year" class="form-input w-full" placeholder="YY" id="cardExpirationYear" data-checkout="cardExpirationYear"
@@ -82,14 +80,14 @@
                      </div>
                      <div class="flex flex-col md:flex-row">
                         <div class="w-full md:w-5/6 px-3 mb-6 md:mb-0">
-                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="cardNumber">
+                          <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="cardNumber">
                             Número de la tarjeta
                           </label>
                           <input  x-model="n_card" class="form-input w-full input-background" id="cardNumber" data-checkout="cardNumber"
                                           onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete=off type="text">
                         </div>
                         <div class="w-full md:w-1/6 px-3 mb-6 md:mb-0">
-                          <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                          <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
                             CVV
                           </label>
                           <input id="securityCode" data-checkout="securityCode" type="text" class="form-input w-full"
@@ -98,15 +96,13 @@
                      </div>
                      <div class="flex">
                       <div class="w-full px-3 mb-6 md:mb-0">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
                           DESCRIPCIÓN
                         </label>
                        <input type="text" class="form-input w-full input-background" name="description" id="description">
                       </div>
                      </div>
                    </div>
-                   
-                  
                 </div>
               <div class="flex flex-row-reverse items-center justify-between">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" id="button_send" type="submit">
