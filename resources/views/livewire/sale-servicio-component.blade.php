@@ -40,7 +40,7 @@
                         <article class="inline overflow-hidden rounded-md shadow-md mt-4 sm:mt-5 md:mt-4 border-2 border-gray-600">
                             <div class="flex items-center flex-col justify-between leading-tight p-2 md:p-4">
                                 <h1 class="text-lg">
-                                    <a class="no-underline hover:underline text-black" href="#">
+                                    <a class="no-underline hover:underline text-black dark:text-white" href="#">
                                     {{ $this->meses($s->mes) }}
                                     </a>
                                 </h1>
