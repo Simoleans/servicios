@@ -2,7 +2,7 @@
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 border-2 border-white dark:bg-gray-800">
           @if (session()->has('message'))
-              <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
+              <div class="bg-green-500 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
                 <div class="flex">
                   <div>
                     <p class="text-sm">{{ session('message') }}</p>
@@ -13,6 +13,10 @@
           <button x-on:click="openModal = !false" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Crear Producto</button>
          
           @include('productos.modal.create')
+
+          @if($isOpen)
+            @include('productos.modal.edit')
+          @endif
          
           
           <input class="form-input rounded-md shadow-sm mt-1 block w-full" type="text" wire:model="search" placeholder="Buscar">
@@ -25,6 +29,7 @@
                             <img alt="Placeholder" class="block h-auto w-full" src="{{asset('storage/'.$p->foto)}}">
                         </a>
                         <div class="flex items-center  flex-col justify-between leading-tight p-2 md:p-4">
+                            <p class="text-bold font-xl mb-2">{{ $p->nombre }}</p>
                             <h1 class="text-lg">
                                 <a class="no-underline hover:underline text-black dark:text-white" href="{{ route('payment-product',['id' => $p->id]) }}">
                                 {{ substr($p->descripcion_larga,0,75) }}
@@ -33,12 +38,13 @@
                             <p class="text-grey-darker text-3xl mt-5">
                                 ${{ number_format($p->precio_normal,2,',','.') }}
                             </p>
-                            <a href="#" class="btn-buy-services motion-reduce:transition-none hover:scale-110 motion-reduce:transform-none hover:bg-green-700 mt-4">
-                                {{-- <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                                </svg> --}}
+                            <button  wire:click="edit({{ $p->id }})" wire:loading.attr="disabled" wire:loading.class="disabled:opacity-50" class=" cursor-pointer btn-buy-services motion-reduce:transition-none hover:scale-110 motion-reduce:transform-none hover:bg-green-700 mt-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                </svg>
                                 Editar
-                            </a>
+                            </button>
                         </div>
                     </article>
                 @endforeach
