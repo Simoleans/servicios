@@ -71,7 +71,7 @@ class User extends Authenticatable
 
     public function subscriptions()
     {
-        return $this->hasMany(Subscriptions::class);
+        return $this->hasMany(Subscriptions::class)->where('status',1);
     }
 
     public function suscribedService($servicio)
@@ -92,12 +92,11 @@ class User extends Authenticatable
 
     public function closestEndSubscription()
     {
-        // dd($subs);
         $date = date('Y-m-d');
         $r = [];
 
         foreach ( $this->subscriptions as $val) {
-           if (Carbon::parse($date)->diffInDays($val->end_date) <= 7) {
+           if (Carbon::parse($date)->diffInDays($val->end_date) <= $val->servicio->dias_notificar) {
                $r[] = array('nombre' => $val->servicio->nombre,'slug' => $val->servicio->slug);
            }
         }

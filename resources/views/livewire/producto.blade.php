@@ -38,7 +38,7 @@
                             <p class="text-grey-darker text-3xl mt-5">
                                 ${{ number_format($p->precio_normal,2,',','.') }}
                             </p>
-                            <button  wire:click="edit({{ $p->id }})" wire:loading.attr="disabled" wire:loading.class="disabled:opacity-50" class=" cursor-pointer btn-buy-services motion-reduce:transition-none hover:scale-110 motion-reduce:transform-none hover:bg-green-700 mt-4">
+                            <button  wire:click="edit({{ $p->id }})" wire:loading.attr="disabled" wire:loading.class="disabled:opacity-50" class="cursor-pointer btn-buy-services motion-reduce:transition-none hover:scale-110 motion-reduce:transform-none hover:bg-green-700 mt-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                     <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
