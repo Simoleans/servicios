@@ -72,10 +72,6 @@ class SubscriptionsComponent extends Component
         $customer->email = $request->email;
         $customer->save();
 
-        // $card = new MercadoPago\Card();
-        // $card->token = $this->token;
-        // $card->customer_id = $customer->id();
-        // $card->save();
         return back()->withInput();
     }
 

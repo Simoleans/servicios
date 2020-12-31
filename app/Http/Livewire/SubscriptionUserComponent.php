@@ -39,8 +39,6 @@ class SubscriptionUserComponent extends Component
             'status' => 0,
             'end_date' => date('Y-m-d')
         ]);
-        // $subscription->status = 0;
-        // $subscription->end_date = date('Y-m-d');
 
         session()->flash('message', 
         'Te has dado de baja correctamente, esperamos que vuelvas pronto.');

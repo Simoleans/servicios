@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TicketComponent;
 use App\Http\Controllers\PagosController;
+use App\Http\Livewire\AdminSubscriptions;
 use App\Http\Livewire\DashboardComponent;
 use App\Http\Livewire\ServiciosComponent;
 use App\Http\Livewire\PagosAdminComponent;
@@ -53,6 +54,7 @@ Route::middleware(['auth:sanctum', 'verified','admin'])->group( function () {
     Route::get('payments',PagosAdminComponent::class)->name('all-payments');
     Route::get('admin-support',AdminSupportComponent::class)->name('admin-support');
     Route::get('admin-config',ConfigurationComponent::class)->name('admin-config');
+    Route::get('all-subscriptions',AdminSubscriptions::class)->name('admin-subscriptions');
 });
 
 

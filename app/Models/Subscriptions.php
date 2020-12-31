@@ -60,6 +60,11 @@ class Subscriptions extends Model
         }
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function scopeSearchSubscriptionToUserActive($query,$servicio)
     {
         if ($servicio) {

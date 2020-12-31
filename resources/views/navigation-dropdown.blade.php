@@ -54,6 +54,13 @@
                                         <x-jet-dropdown-link href="{{ route('all-payments') }}">
                                             {{ __('Ver Todos') }}
                                         </x-jet-dropdown-link>
+                                    <div class="border-t border-gray-100"></div>
+                                    <div class="block px-4 py-2 text-xs text-gray-400">
+                                        {{ __('Subscripciones') }}
+                                    </div>
+                                        <x-jet-dropdown-link href="{{ route('admin-subscriptions') }}">
+                                            {{ __('Ver Todas') }}
+                                        </x-jet-dropdown-link>
                                 </x-slot>
                             </x-jet-dropdown>
                         </div>
