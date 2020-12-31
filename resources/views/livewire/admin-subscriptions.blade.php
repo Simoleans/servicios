@@ -31,9 +31,9 @@
                         @foreach($subscriptions as $s)
                             <div class="flex flex-col md:flex-row w-full bg-white dark:bg-gray-800 border-2 border-white shadow-lg rounded-lg overflow-hidden">
                                 <div class="md:hidden">
-                                    <img alt="Placeholder" class="block h-full w-full" src="{{asset('storage/'.$s->servicio->foto)}}">
+                                    <img alt="Placeholder" class="h-auto w-full" src="{{asset('storage/'.$s->servicio->foto)}}">
                                 </div> 
-                                <div class="w-1/3" style="background-image: url('{{asset('storage/'.$s->servicio->foto)}}')">
+                                <div class="md:w-1/3 md:bg-cover" style="background-image: url('{{asset('storage/'.$s->servicio->foto)}}')">
                                 </div> 
                                 <div class="md:w-2/3 p-4">
                                     <h1 class="text-gray-900 font-bold text-xl dark:text-white"> {{ $s->servicio->nombre }}</h1>
