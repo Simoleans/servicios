@@ -2,11 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\CicloServicio;
+use Carbon\Carbon;
+use App\Models\User;
 use Livewire\Component;
 use App\Models\Servicios;
-use Livewire\WithFileUploads;
 use Illuminate\Http\Request;
+use App\Models\CicloServicio;
+use App\Models\Subscriptions;
+use Livewire\WithFileUploads;
 use Illuminate\Validation\Rule; 
 
 
@@ -22,6 +25,8 @@ class ServiciosComponent extends Component
     public $editServicio = false;
     public $serv;
 
+    public $modalAddUser = false;
+
     //input dynamic
     public $counter = 0;
     public $arrayFormCiclo = []; 
@@ -31,6 +36,10 @@ class ServiciosComponent extends Component
     public $ciclo_id;
     public $updateCiclo = false;
     public $servicio_id;
+    public $servicio_id_add;
+    public $emailUser;
+    public $cantidad;
+    public $ciclosAdd = [];
 
     public function render()
     {
@@ -182,8 +191,8 @@ class ServiciosComponent extends Component
     public function update()
     {
         $servicio = Servicios::findOrfail($this->servicio_id);
-        //dd($this->foto);
-         $servicio->update([
+
+        $servicio->update([
             'nombre' => $this->nombre,
             'descripcion_corta' => $this->descripcion_corta,
             'descripcion_larga' => $this->descripcion_larga,
@@ -296,5 +305,53 @@ class ServiciosComponent extends Component
 
         session()->flash('error', 
             'Ciclo Eliminado Correctamente.');
+    }
+
+    public function confirmAddUSer($id)
+    {
+        $this->servicio_id_add = $id;
+        $servicio = Servicios::findOrfail($id);
+        $this->ciclosAdd = $servicio->ciclos;
+        $this->openModalAddUser();
+    }
+    public function openModalAddUser()
+    {
+        $this->modalAddUser = true;
+    }
+
+    public function closeModalAddUser()
+    {
+        $this->modalAddUser = false;
+        $this->emailUser = '';
+        $this->cantidad = [];
+        $this->servicio_id_add = '';
+    }
+
+    public function addUserStore()
+    {
+        $this->validate([
+            'cantidad' => 'required',
+            'emailUser' => 'required|email',
+        ]);
+
+        $user = User::whereEmail($this->emailUser)->first();
+
+        if(!$user->exists()){
+            return $this->addError('emailUser', 'Este usuario no existe en la base de datos.');
+        }
+        $ciclo = CicloServicio::findOrfail($this->cantidad);
+
+        Subscriptions::create([
+            'user_id' => $user->id,
+            'servicio_id' => $this->servicio_id_add,
+            'ciclo_id' => $this->cantidad,
+            'start_date' => Carbon::now()->format('Y-m-d'),
+            'end_date' => Carbon::now()->addMonths($ciclo->mes)
+        ]);
+
+        session()->flash('message', 
+            'Usuario inscrito a la subscripción.');
+        $this->closeModalAddUser();
+       
     }
 }

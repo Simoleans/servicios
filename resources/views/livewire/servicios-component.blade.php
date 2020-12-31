@@ -21,7 +21,7 @@
                                                   x-transition:leave-end="opacity-0">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 dark:bg-gray-800 border-2 border-white">
             @if (session()->has('message'))
-                <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
+                <div class="bg-green-100 border-t-4 border-green-500 rounded-b text-black px-4 py-3 shadow-md my-3" role="alert">
                   <div class="flex">
                     <div>
                       <p class="text-sm">{{ session('message') }}</p>
@@ -31,7 +31,9 @@
             @endif
             <button x-on:click="showCreate = true" x-show="showCreate == false" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Crear Servicio</button>
             <button x-on:click="showCreate = false" x-cloak x-show="showCreate == true" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded my-3">Cerrar Formulario</button>
-
+            @if($modalAddUser)
+              @include('servicios.modal.add-user')
+            @endif
             @include('servicios.create')
               <div class="flex items-center border-b border-gray-900 dark:border-white py-2 w-full">
                 <input wire:model.debounce.300ms="search" class="appearance-none bg-transparent border-none w-full text-gray-700 dark:text-white mr-3 pb-1 px-2 leading-tight focus:outline-none" type="text" placeholder="Buscar por Nombre" aria-label="Buscar">
@@ -58,16 +60,21 @@
                      <div class=" pt-4 pb-2">
                         <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">${{ $s->precio_normal }}</span>
                       </div>
-                     <div class="grid grid-cols-2">
-                        <a class="bg-teal-600 justify-center py-2 text-center text-white font-semibold transition duration-300 hover:bg-teal-500" href="{{ route('servicio.show',$s->id) }}">
+                     <div class="grid grid-cols-2 gap-2">
+                        <a class="bg-blue-600 justify-center py-2 text-center text-white font-semibold transition duration-300 hover:bg-blue-500" href="{{ route('servicio.show',$s->id) }}">
                             Agregar Producto
                         </a>
                         <button wire:click="delete({{ $s->id }})" class="bg-red-600 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-red-500">
                             Eliminar
                         </button>
                         <button wire:click="edit({{ $s->id }})"  wire:loading.attr="disabled" class="bg-green-400 col-span-2 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-green-300">
-                          Editar
-                      </button>
+                            Editar
+                        </button>
+                        @if(auth()->user()->admin())
+                          <button wire:click="confirmAddUSer({{ $s->id }})"  wire:loading.attr="disabled" class="bg-yellow-400 col-span-2 justify-center py-2 text-white font-semibold transition duration-300 hover:bg-yellow-300">
+                              Agregar Usuario
+                          </button>
+                        @endif
                      </div>
                   </div>
                 @endforeach
