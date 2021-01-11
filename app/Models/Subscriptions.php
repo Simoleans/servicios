@@ -4,8 +4,10 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Mail\NotificationEndsubscription;
 
 
 class Subscriptions extends Model
@@ -80,6 +82,24 @@ class Subscriptions extends Model
     public function servicio()
     {
         return $this->belongsTo(Servicios::class);
+    }
+
+    public static function notificationEndsubscription()
+    {
+        $data = self::where('status',1)->get();
+        $today = Date('Y-m-d');
+        $v = false;
+
+        foreach ($data as $d) {
+            //$v [] = $today.' - '.$d->end_date->subDays($d->servicio->dias_notificar)->format('Y-m-d');
+            if ($d->end_date->subDays($d->servicio->dias_notificar)->format('Y-m-d') == $today) {
+                $v = true;
+                Mail::to($d->user->email)->send(new NotificationEndsubscription());
+            }
+        }
+
+        return $v;
+        
     }
     
 }

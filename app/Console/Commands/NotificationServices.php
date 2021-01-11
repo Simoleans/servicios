@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Subscriptions;
 use Illuminate\Console\Command;
 
 class NotificationServices extends Command
@@ -11,14 +12,14 @@ class NotificationServices extends Command
      *
      * @var string
      */
-    protected $signature = 'notification:services';
+    protected $signature = 'notification:services {user = 1}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Recorrido de todos los servicios, para enviar mail de aviso';
 
     /**
      * Create a new command instance.
@@ -37,6 +38,8 @@ class NotificationServices extends Command
      */
     public function handle()
     {
-        return 0;
+        $notificationsFunction = Subscriptions::notificationEndsubscription();
+
+        $this->info($notificationsFunction ? 'Se han mandado correos' : 'No se ha mandado ningun correo');
     }
 }
