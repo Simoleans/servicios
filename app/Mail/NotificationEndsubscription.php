@@ -11,14 +11,16 @@ class NotificationEndsubscription extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $subscripcion;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($subscripcion)
     {
-        //
+        $this->subscripcion = $subscripcion;
     }
 
     /**
@@ -28,6 +30,6 @@ class NotificationEndsubscription extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.notificationEnd');
+        return $this->view('mail.aviso');
     }
 }

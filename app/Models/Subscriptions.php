@@ -92,9 +92,9 @@ class Subscriptions extends Model
 
         foreach ($data as $d) {
             //$v [] = $today.' - '.$d->end_date->subDays($d->servicio->dias_notificar)->format('Y-m-d');
-            if ($d->end_date->subDays($d->servicio->dias_notificar)->format('Y-m-d') == $today) {
+            if ($d->end_date->subDays($d->servicio->dias_notificar)->format('Y-m-d') <= $today) {
                 $v = true;
-                Mail::to($d->user->email)->send(new NotificationEndsubscription());
+                Mail::to($d->user->email)->send(new NotificationEndsubscription($d));
             }
         }
 
