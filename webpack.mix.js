@@ -15,7 +15,15 @@ mix.js(['resources/js/app.js'], 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
-    ]);
+    ]).browserSync({
+        open: 'external',
+        proxy: 'localhost/jetstream/public',
+        files: ['resources/views/**/*.php', 'app/**/*.php', 'routes/**/*.php', 'public/js/*.js', 'public/css/*.css']
+    });
+
+    // mix().browserSync({
+    //     'proxy': 'tuapp.test',
+    // });
 
     // mix.scripts([
     //     'public/js/alpine.js',
