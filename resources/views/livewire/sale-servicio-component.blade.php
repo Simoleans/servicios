@@ -75,29 +75,19 @@
                                         </svg>
                                         Renovar
                                     </a>
-                                    <a href="{{ route('payment_renovar_mercadopago_index',['slug' => $s->servicio->slug,'ciclo' => $s->id]) }}" class="btn-renovar-services  hover:bg-green-700">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
-                                        </svg>
-                                        Flow
-                                    </a>
                                 @else
                                     <a href="{{ route('payment_mercadopago_index',['slug' => $s->servicio->slug,'ciclo' => $s->id]) }}" class="btn-buy-services  hover:bg-green-700" title="Pagar con MercadoPago">
-                                        <img src="https://s2.googleusercontent.com/s2/favicons?domain=mercadolibre.com&sz=32" class="w-6 h-6 inline-block" alt="Flow Payment Icon"/>
-                                        
-                                    </a>
-                                    <a href="{{ route('payment_mercadopago_index',['slug' => $s->servicio->slug,'ciclo' => $s->id]) }}" class="btn-buy-services-flow  hover:bg-blue-700" title="Pagar con Flow">
-                                        <img src="https://s2.googleusercontent.com/s2/favicons?domain=flow.cl&sz=32" class="w-6 h-6 inline-block" alt="Flow Payment Icon"/>
-                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                                            <path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
+                                        </svg>
+                                        Pagar
                                     </a>
                                 @endif
                             </div>
                         </article>
                     @endforeach
                 </div>
-                {{-- <div class="bg-white px-4 py-3 border-t mt-4 border-gray-200 sm:px-6">
-                    {{ $servicio->ciclos->links() }}
-                </div> --}}
                 @else
                     <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
                     No Hay Resultados para la busqueda {{$search}}

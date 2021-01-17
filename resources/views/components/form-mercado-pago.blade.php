@@ -45,7 +45,7 @@
                               <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-last-name">
                                 Tipo de documento
                               </label>
-                              <select class="block bg-gray-200 border-transparent rounded-md p-3 focus:border-gray-500 focus:bg-white focus:ring-0 w-full mb-6" id="docType" name="docType" data-checkout="docType" type="text" required="">
+                              <select class="block bg-gray-200 border-transparent rounded-md p-3 focus:border-gray-500 text-black focus:ring-0 w-full mb-6" id="docType" name="docType" data-checkout="docType" type="text" required="">
                                 <option>Seleccione...</option>
                                 <option>RUT</option>
                                 <option>Otro</option>

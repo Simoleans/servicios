@@ -4,13 +4,13 @@
       <div class="w-full">
         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black dark:text-white border-white border" :class="{'bg-blue-600' : tabActive == 'mercadopago'}" @click="changeAtiveTab(event,'mercadopago')">
+            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black dark:text-white" :class="{'bg-blue-600 dark:bg-gray-600' : tabActive == 'mercadopago'}" @click="changeAtiveTab(event,'mercadopago')">
               <img src="https://s2.googleusercontent.com/s2/favicons?domain=mercadolibre.com&sz=32" class="w-6 h-6 inline-block" alt="Mercadopago Payment"/>
               Mercadopago
             </a>
           </li>
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black dark:text-white border-white border" :class="{'bg-blue-600' : tabActive == 'flow'}" @click="changeAtiveTab(event,'flow')">
+            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-black dark:text-white y-600" :class="{'bg-blue-600 dark:bg-gray-600' : tabActive == 'flow'}" @click="changeAtiveTab(event,'flow')">
               <img src="https://s2.googleusercontent.com/s2/favicons?domain=flow.cl&sz=32" class="w-6 h-6 inline-block" alt="Flow Payment Icon"/>
               Flow
             </a>
@@ -42,7 +42,7 @@
                               <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-last-name">
                                 Tipo de documento
                               </label>
-                              <select class="block bg-gray-200 border-transparent rounded-md p-3 focus:border-gray-500 focus:bg-white focus:ring-0 w-full mb-6" id="docType" name="docType" data-checkout="docType" type="text" required="">
+                              <select class="block text-black bg-gray-200 border-transparent rounded-md p-3 focus:border-gray-500 focus:ring-0 w-full mb-6" id="docType" name="docType" data-checkout="docType" type="text" required="">
                                 <option>Seleccione...</option>
                                 <option>RUT</option>
                                 <option>Otro</option>
