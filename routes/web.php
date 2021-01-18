@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FlowPaymentsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\TicketComponent;
 use App\Http\Controllers\PagosController;
@@ -38,6 +39,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/comprar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_mercadopago_index'])->name('payment_mercadopago_index');
     Route::get('/renovar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_renovar_mercadopago_index'])->name('payment_renovar_mercadopago_index');
     Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
+    Route::post('/flow', [FlowPaymentsController::class, 'payments_store'])->name('flow-payment');
+    Route::get('/flow/confirmation', [FlowPaymentsController::class, 'redirect_payment'])->name('confirmation-flow');
 
     Route::resource('/productos',ProductoController::class);
     Route::get('support',SupportCustomerComponent::class)->name('support');

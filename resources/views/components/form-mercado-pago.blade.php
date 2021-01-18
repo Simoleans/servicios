@@ -137,15 +137,16 @@
                   </div>
               </div>
               <div :class="{ 'hidden' : tabActive != 'flow' }" x-cloak id="tab-flow">
-                <p>
-                  Completely synergize resource taxing relationships via
-                  premier niche markets. Professionally cultivate one-to-one
-                  customer service with robust ideas.
-                  <br />
-                  <br />
-                  Dynamically innovate resource-leveling customer service for
-                  state of the art customer service.
-                </p>
+                <div class="flex flex-col">
+                  <form action="{{ route('flow-payment') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="p-2 bg-blue-500 hover:bg-blue-700 rounded w-full">
+                      <span class="text-center font-bold text-white">
+                        PAGAR CON FLOW
+                      </span>
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
