@@ -24,7 +24,6 @@ class PaymentMercadoPago extends Model
 
     public function store($request)
     {
-        //dd(session('amount'));
         $payment = new  MercadoPago\Payment();
         $payment->transaction_amount = $request->transactionAmount;
         $payment->token = $request->token;
@@ -35,6 +34,7 @@ class PaymentMercadoPago extends Model
           "email" => $request->email
         );
         $payment->save();
+        dd($payment);
 
         if ($payment->status == 'approved') {
 
@@ -47,12 +47,15 @@ class PaymentMercadoPago extends Model
             ]);
 
             $pagoSystem = Payment::create([
+                'order_number' => $payment->id,
                 'user_id' => auth()->user()->id,
                 'servicio_id' => $request->servicio_id,
                 'ciclo_id' => $request->ciclo_id,
                 'ticket_id' => $request->ticket_id,
                 'monto' => session('amount'),
-                'producto_id' => $request->producto_id
+                'producto_id' => $request->producto_id,
+                'plataform_payment' => 'ml',
+                'status' => 1
             ]);
             
             if ($request->producto_id == null) {
@@ -66,6 +69,18 @@ class PaymentMercadoPago extends Model
                 ]);
             }
             
+        }else{
+            Payment::create([
+                'order_number' => $payment->id,
+                'user_id' => auth()->user()->id,
+                'servicio_id' => $request->servicio_id,
+                'ciclo_id' => $request->ciclo_id,
+                'ticket_id' => $request->ticket_id,
+                'monto' => session('amount'),
+                'producto_id' => $request->producto_id,
+                'plataform_payment' => 'ml',
+                'status' => 0
+            ]);
         }
 
         return $payment;

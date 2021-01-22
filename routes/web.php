@@ -23,7 +23,8 @@ use App\Http\Livewire\ShowProductsSubscriptionsComponent;
 Route::get('/', function () {
     return view('auth.login');
 });
-
+Route::post('/flow/confirmation', [FlowPaymentsController::class, 'redirect_payment'])->name('confirmation-flow');
+Route::post('/flow/redirect/success', [FlowPaymentsController::class, 'redirect_succes'])->name('redirect-success-flow');
 Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/dashboard',DashboardComponent::class)->name('dashboard');
     Route::get('servicios',ServiciosComponent::class)->name('servicios');
@@ -40,7 +41,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/renovar/serv/{slug}/{ciclo}', [PagosController::class, 'payment_renovar_mercadopago_index'])->name('payment_renovar_mercadopago_index');
     Route::post('/mercadopago', [PagosController::class, 'payment_mercadopago'])->name('pagos.payment');
     Route::post('/flow', [FlowPaymentsController::class, 'payments_store'])->name('flow-payment');
-    Route::get('/flow/confirmation', [FlowPaymentsController::class, 'redirect_payment'])->name('confirmation-flow');
+    
 
     Route::resource('/productos',ProductoController::class);
     Route::get('support',SupportCustomerComponent::class)->name('support');

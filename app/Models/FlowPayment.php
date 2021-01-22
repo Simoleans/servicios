@@ -10,33 +10,34 @@ use Illuminate\Database\Eloquent\Model;
 
 class FlowPayment extends Model
 {
-    const COMMERCE_CONFIG = array(
-        "APIKEY" => "606420F3-E3D3-4041-85D8-1L147BEC3731", // Registre aquí su apiKey
-        "SECRETKEY" => "1dca1bf091dbf8475cf877505f88e0b124b980f8", // Registre aquí su secretKey
-        "APIURL" => "https://sandbox.flow.cl/api", // Producción EndPoint o Sandbox EndPoint
-        "BASEURL" => "https://www.micomercio.cl/apiFlow" //Registre aquí la URL base en su página donde instalará el cliente
-    );
+    // const COMMERCE_CONFIG = array(
+    //     "APIKEY" => env('FLOW_API'), // Registre aquí su apiKey
+    //     "SECRETKEY" => env('FLOW_SECRET'), // Registre aquí su secretKey
+    //     "APIURL" => "https://sandbox.flow.cl/api", // Producción EndPoint o Sandbox EndPoint
+    //     "BASEURL" => "https://www.micomercio.cl/apiFlow" //Registre aquí la URL base en su página donde instalará el cliente
+    // );
 
     protected $apiKey;
 	protected $secretKey;
 	
 	
 	public function __construct() {
-		$this->apiKey = self::COMMERCE_CONFIG['APIKEY'];
-		$this->secretKey = self::COMMERCE_CONFIG['SECRETKEY'];
+		$this->apiKey = env('FLOW_API');
+		$this->secretKey = env('FLOW_SECRET');
+		$this->apiUrl = env('FLOW_API_URL');
 	}
     
-    static function get($name) {
+    // static function get($name) {
 
-        if(!isset(self::COMMERCE_CONFIG[$name])) {
-			throw new Exception("The configuration element thas not exist", 1);
-		}
-		return self::COMMERCE_CONFIG[$name];
-    }
+    //     if(!isset(self::COMMERCE_CONFIG[$name])) {
+	// 		throw new Exception("The configuration element thas not exist", 1);
+	// 	}
+	// 	return self::COMMERCE_CONFIG[$name];
+    // }
 
     public function send( $service, $params, $method = "GET") {
 		$method = strtoupper($method);
-		$url = self::COMMERCE_CONFIG['APIURL'] . "/" . $service;
+		$url = $this->apiUrl . "/" . $service;
 		$params = array("apiKey" => $this->apiKey) + $params;
 		$params["s"] = $this->sign($params);
 		if($method == "GET") {

@@ -10,12 +10,15 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
+        'order_number',
         'user_id',
         'servicio_id',
         'ciclo_id',
         'producto_id',
         'monto',
-        'ticket_id'
+        'ticket_id',
+        'plataform_payment',
+        'status'
     ];
 
     public function servicio()

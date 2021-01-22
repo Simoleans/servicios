@@ -43,8 +43,8 @@ class PagosController extends Controller
          }
         
       }
-      //dd($request->all());
-       MercadoPago\SDK::setAccessToken(PaymentMercadoPago::TOKEN); // Either Production or SandBox AccessToken
+
+      MercadoPago\SDK::setAccessToken(PaymentMercadoPago::TOKEN); // Either Production or SandBox AccessToken
        
       //customer va primero, el pago va asociado al customer (validando que si existe no lo hguarde)
       $this->customerMP->store($request->email);

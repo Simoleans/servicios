@@ -140,6 +140,31 @@
                 <div class="flex flex-col">
                   <form action="{{ route('flow-payment') }}" method="POST">
                     @csrf
+                    <input type="hidden" name="transactionAmount" id="amount" value="{{ session('amount') }}"/>
+                    <input type="hidden" name="ticket_id" id="ticket_id" />
+                    <input type="hidden" name="servicio_id" value="{{ $servicio }}">
+                    <input type="hidden" name="ciclo_id" value="{{ $ciclo }}">
+                    <input type="hidden" name="renovated" value="{{ $renovated }}">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2 dark:text-white" for="grid-first-name">
+                          Email
+                        </label>
+                        <input class="form-input w-full bg-gray-300"  required value="{{ auth()->user()->email }}" id="email" type="text" name="email">
+                      </div>
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
+                          Asunto
+                        </label>
+                        <input class="form-input w-full" maxlength="80" name="subject" required placeholder="Asunto del pago">
+                      </div>
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
+                          Número de documento
+                        </label>
+                        <input class="form-input w-full" required name="rut"  placeholder="Ingrese RUT" x-on:input.debounce.250ms="checkRut(rut)" id="rut"  type="text" >
+                      </div>
+                  </div>
                     <button type="submit" class="p-2 bg-blue-500 hover:bg-blue-700 rounded w-full">
                       <span class="text-center font-bold text-white">
                         PAGAR CON FLOW
@@ -165,6 +190,53 @@
       tabActive : 'mercadopago',
       changeAtiveTab(event,tabID) {
        this.tabActive = tabID;
+      },
+      checkRut(rut) {
+          // Despejar Puntos
+          var valor = rut.value.replace('.','');
+          // Despejar Guión
+          valor = valor.replace('-','');
+          
+          // Aislar Cuerpo y Dígito Verificador
+          cuerpo = valor.slice(0,-1);
+          dv = valor.slice(-1).toUpperCase();
+          
+          // Formatear RUN
+          rut.value = cuerpo + '-'+ dv
+          
+          // Si no cumple con el mínimo ej. (n.nnn.nnn)
+          if(cuerpo.length < 7) { rut.setCustomValidity("RUT Incompleto"); return false;}
+          
+          // Calcular Dígito Verificador
+          suma = 0;
+          multiplo = 2;
+          
+          // Para cada dígito del Cuerpo
+          for(i=1;i<=cuerpo.length;i++) {
+          
+              // Obtener su Producto con el Múltiplo Correspondiente
+              index = multiplo * valor.charAt(cuerpo.length - i);
+              
+              // Sumar al Contador General
+              suma = suma + index;
+              
+              // Consolidar Múltiplo dentro del rango [2,7]
+              if(multiplo < 7) { multiplo = multiplo + 1; } else { multiplo = 2; }
+        
+          }
+          
+          // Calcular Dígito Verificador en base al Módulo 11
+          dvEsperado = 11 - (suma % 11);
+          
+          // Casos Especiales (0 y K)
+          dv = (dv == 'K')?10:dv;
+          dv = (dv == 0)?11:dv;
+          
+          // Validar que el Cuerpo coincide con su Dígito Verificador
+          if(dvEsperado != dv) { rut.setCustomValidity("RUT Inválido"); return false; }
+          
+          // Si todo sale bien, eliminar errores (decretar que es válido)
+          rut.setCustomValidity('');
       }
     }
   }

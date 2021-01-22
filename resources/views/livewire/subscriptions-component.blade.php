@@ -1,3 +1,12 @@
+@if (session()->has('message'))
+    <div class="bg-green-100 border-t-4 w-full border-green-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
+    <div class="flex">
+        <div>
+        <p class="text-sm">{{ session('message') }}</p>
+        </div>
+    </div>
+    </div>
+@endif
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-full gap-1" x-data="data()" 
                                                                          x-init="window.addEventListener('total', event => {
                                                                                     let inputAmount = document.getElementById('amount');
@@ -5,19 +14,11 @@
                                                                                     inputAmount.setAttribute('value', event.detail.amount);
                                                                                     inputTicket.setAttribute('value', event.detail.ticket);
                                                                                 }) " >
+                                                                                
     <!-- section ticket y precio -->
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py- dark:bg-gray-800 border-2 border-white">
-                @if (session()->has('message'))
-                    <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
-                    <div class="flex">
-                        <div>
-                        <p class="text-sm">{{ session('message') }}</p>
-                        </div>
-                    </div>
-                    </div>
-                @endif
                 <article class="inline overflow-hidden rounded-md shadow-md mt-4 sm:mt-5 md:mt-4">
                     <div class="flex items-center flex-col justify-between leading-tight p-2 md:p-4">
                         <h1 class="text-lg">
@@ -57,15 +58,6 @@
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 dark:bg-gray-800 border-2 border-white">
-                @if (session()->has('message'))
-                    <div class="bg-green-500 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
-                        <div class="flex">
-                            <div>
-                            <p class="text-sm">{{ session('message') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                @endif
                 <h1 class="font-extrabold">PRECIO</h1>
                 <article class="inline overflow-hidden rounded-md shadow-md mt-4 sm:mt-5 md:mt-4">
                     <div class="flex items-center flex-col justify-between leading-tight p-2 md:p-4">
