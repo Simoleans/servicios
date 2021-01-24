@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'flow/redirect/success',
-        'flow/confirmation'
+        'flow/confirmation',
     ];
 }

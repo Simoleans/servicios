@@ -34,7 +34,6 @@ class PaymentMercadoPago extends Model
           "email" => $request->email
         );
         $payment->save();
-        dd($payment);
 
         if ($payment->status == 'approved') {
 
@@ -65,7 +64,8 @@ class PaymentMercadoPago extends Model
             }else{
                 ProductoUser::create([
                     'user_id' => auth()->user()->id,
-                    'producto_id' => $request->producto_id
+                    'producto_id' => $request->producto_id,
+                    'status' => 1
                 ]);
             }
             
@@ -79,7 +79,7 @@ class PaymentMercadoPago extends Model
                 'monto' => session('amount'),
                 'producto_id' => $request->producto_id,
                 'plataform_payment' => 'ml',
-                'status' => 0
+                'status' => 2
             ]);
         }
 
@@ -104,7 +104,8 @@ class PaymentMercadoPago extends Model
         }else{
             ProductoUser::create([
                 'user_id' => auth()->user()->id,
-                'producto_id' => $request->producto_id
+                'producto_id' => $request->producto_id,
+                'status' => 1
             ]);
         }
             

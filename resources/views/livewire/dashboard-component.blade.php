@@ -1,4 +1,13 @@
 <div x-data="{open : true,openExpired : true}">
+    @if (session()->has('error_payment'))
+        <div class="bg-red-500 border-t-4 border-red-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3" role="alert">
+        <div class="flex">
+            <div>
+            <p class="text-sm">{{ session('error_payment') }}</p>
+            </div>
+        </div>
+        </div>
+    @endif
     @if(count(auth()->user()->closestEndSubscription()) > 0)
         <div x-show.transition.duration.900ms.scale.0="open" class=" border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md my-2 bg-yellow-400 border-yellow-600" role="alert">
             <div class="flex justify-between">

@@ -25,11 +25,13 @@ Route::get('/', function () {
 });
 Route::post('/flow/confirmation', [FlowPaymentsController::class, 'redirect_payment'])->name('confirmation-flow');
 Route::post('/flow/redirect/success', [FlowPaymentsController::class, 'redirect_succes'])->name('redirect-success-flow');
+Route::post('/flow/redirect/app', [FlowPaymentsController::class, 'redirect_app'])->name('redirect.app.flow');
+Route::get('/flow/redirect/confirm', [FlowPaymentsController::class, 'redirect_confirm'])->name('redirect-confirm-flow');
 Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/dashboard',DashboardComponent::class)->name('dashboard');
     Route::get('servicios',ServiciosComponent::class)->name('servicios');
     Route::get('/servicio/{servicio}', ServiciosProductosComponent::class)->name('servicio.show');
-   
+    
     Route::get('/renovar/servicio/{slug}', SaleServicioComponent::class)->name('servicio.renovar.show');
     Route::get('ticket',TicketComponent::class)->name('ticket');
     Route::get('mis-pagos',PaymentsUserComponent::class)->name('mis-pagos');
@@ -59,6 +61,7 @@ Route::middleware(['auth:sanctum', 'verified','admin'])->group( function () {
     Route::get('admin-support',AdminSupportComponent::class)->name('admin-support');
     Route::get('admin-config',ConfigurationComponent::class)->name('admin-config');
     Route::get('all-subscriptions',AdminSubscriptions::class)->name('admin-subscriptions');
+    Route::get('/order/flow/{flow}', [FlowPaymentsController::class,'search_flow_order'])->name('search_flow_order');
 });
 
 

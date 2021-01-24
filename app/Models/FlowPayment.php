@@ -40,6 +40,7 @@ class FlowPayment extends Model
 		$url = $this->apiUrl . "/" . $service;
 		$params = array("apiKey" => $this->apiKey) + $params;
 		$params["s"] = $this->sign($params);
+		
 		if($method == "GET") {
 			$response = $this->httpGet($url, $params);
 		} else {

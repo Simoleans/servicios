@@ -138,7 +138,7 @@
               </div>
               <div :class="{ 'hidden' : tabActive != 'flow' }" x-cloak id="tab-flow">
                 <div class="flex flex-col">
-                  <form action="{{ route('flow-payment') }}" method="POST">
+                  <form action="{{ route('flow-payment') }}" method="POST" >
                     @csrf
                     <input type="hidden" name="transactionAmount" id="amount" value="{{ session('amount') }}"/>
                     <input type="hidden" name="ticket_id" id="ticket_id" />

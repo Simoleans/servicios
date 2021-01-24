@@ -11,6 +11,6 @@ class ProductosCompradosComponent extends Component
 
     public function render()
     {
-        return view('livewire.productos-comprados-component',['productos' => ProductoUser::where('user_id',auth()->user()->id)->paginate(6)])->layout('layouts.app',['header' => 'Mis Productos']);
+        return view('livewire.productos-comprados-component',['productos' => ProductoUser::where('user_id',auth()->user()->id)->where('status',1)->paginate(6)])->layout('layouts.app',['header' => 'Mis Productos']);
     }
 }

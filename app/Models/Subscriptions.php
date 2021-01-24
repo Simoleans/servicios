@@ -30,6 +30,7 @@ class Subscriptions extends Model
 
     public static function storeSubscription($request)
     {
+        
         $ciclo = CicloServicio::findOrfail($request->ciclo_id);
 
         if ($request->renovated == true) {
@@ -45,6 +46,24 @@ class Subscriptions extends Model
         }
     }
 
+    public static function storeSubscriptionFlow($request)
+    {
+        
+        $ciclo = CicloServicio::findOrfail($request['ciclo_id']);
+
+        if ($request['renovated'] == true) {
+            self::renovarSubscriptionFlow($request);
+        }else{
+            self::create([
+                'user_id' => auth()->user()->id,
+                'servicio_id' => $request['servicio_id'],
+                'ciclo_id' => $request['ciclo_id'],
+                'start_date' => Carbon::now()->format('Y-m-d'),
+                'end_date' => Carbon::now()->addMonths($ciclo->mes)
+            ]);
+        }
+    }
+
     public static function renovarSubscription($request)
     {
         $ciclo = CicloServicio::findOrfail($request->ciclo_id);
@@ -54,6 +73,23 @@ class Subscriptions extends Model
         if($existsSubscription)
         {
             $servicioActivo = self::searchSubscriptionToUserActive($request->servicio_id)->first();
+            $servicioActivo->end_date = $servicioActivo->end_date->addMonths($ciclo->mes);
+            $servicioActivo->save();
+
+        }else{
+            return false;
+        }
+    }
+
+    public static function renovarSubscriptionFlow($request)
+    {
+        $ciclo = CicloServicio::findOrfail($request['ciclo_id']);
+        $existsSubscription = self::searchSubscriptionToUserActive($request['servicio_id'])->exists(); // verifico si tiene una subscripcion activa
+
+        // si ya tengo una verificacion activa, entonces le aumento la fecha de fin
+        if($existsSubscription)
+        {
+            $servicioActivo = self::searchSubscriptionToUserActive($request['servicio_id'])->first();
             $servicioActivo->end_date = $servicioActivo->end_date->addMonths($ciclo->mes);
             $servicioActivo->save();
 

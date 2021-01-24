@@ -134,15 +134,39 @@
                   </div>
               </div>
               <div :class="{ 'hidden' : tabActive != 'flow' }" x-cloak id="tab-flow">
-                <p>
-                  Completely synergize resource taxing relationships via
-                  premier niche markets. Professionally cultivate one-to-one
-                  customer service with robust ideas.
-                  <br />
-                  <br />
-                  Dynamically innovate resource-leveling customer service for
-                  state of the art customer service.
-                </p>
+                <div class="flex flex-col">
+                  <form action="{{ route('flow-payment') }}" method="POST" >
+                    @csrf
+                    <input type="hidden" name="transactionAmount" id="amount" value="{{ session('amount') }}"/>
+                    <input type="hidden" name="ticket_id" id="ticket_id" />
+                    <input type="hidden" name="producto_id" value="{{ $producto->id }}">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2 dark:text-white" for="grid-first-name">
+                          Email
+                        </label>
+                        <input class="form-input w-full bg-gray-300"  required value="{{ auth()->user()->email }}" id="email" type="text" name="email">
+                      </div>
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
+                          Asunto
+                        </label>
+                        <input class="form-input w-full" maxlength="80" name="subject" required placeholder="Asunto del pago">
+                      </div>
+                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
+                          Número de documento
+                        </label>
+                        <input class="form-input w-full" required name="rut"  placeholder="Ingrese RUT" x-on:input.debounce.250ms="checkRut(rut)" id="rut"  type="text" >
+                      </div>
+                  </div>
+                    <button type="submit" class="p-2 bg-blue-500 hover:bg-blue-700 rounded w-full">
+                      <span class="text-center font-bold text-white">
+                        PAGAR CON FLOW
+                      </span>
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
