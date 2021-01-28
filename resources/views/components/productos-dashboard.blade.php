@@ -9,7 +9,7 @@
             <div class="flex items-center  flex-col justify-between leading-tight p-2 md:p-4">
                 <h1 class="text-lg">
                     <a class="no-underline hover:underline text-black dark:text-white" href="{{ route('payment-product',['id' => $p->id]) }}">
-                    {{ $p->descripcion_larga }}
+                    {{ substr($p->descripcion_larga,-35) }}
                     </a>
                 </h1>
                 <p class="text-grey-darker text-3xl mt-5">

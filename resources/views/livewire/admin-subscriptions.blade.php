@@ -38,6 +38,7 @@
                                 <div class="md:w-2/3 p-4">
                                     <h1 class="text-gray-900 font-bold text-xl dark:text-white"> {{ $s->servicio->nombre }}</h1>
                                     <p class="text-sm text-blue-500 font-bold">{{ $s->user->email }} | {{ $s->user->name }}</p>
+                                    <p class="text-xs text-green-500 font-bold">Contratación: {{ $s->start_date->format('d-m-Y') }}</p>
                                     <p class="text-xs text-red-500 font-bold">Vencimiento: {{ $s->end_date->format('d-m-Y') }} ({{ $s->end_date->diffForHumans(\Carbon\Carbon::now()->format('Y-m-d')) }})</p>
                                     <p class="mt-2 text-gray-600 text-sm font-bold dark:text-white"> {{ $s->servicio->descripcion_corta }}</p>
 
