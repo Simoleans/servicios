@@ -12,6 +12,8 @@ class AdminSubscriptions extends Component
     public $modalConfirmBaja = false;
     public $modalExtender = false;
     public $modalRestar = false;
+    public $modalConfirmEditar;
+    public $fecha_start,$fecha_end;
 
     public $cantidad;
 
@@ -133,4 +135,27 @@ class AdminSubscriptions extends Component
         $this->modalRestar = false;
         $this->cantidad= '';
     }
+
+    public function confirmEditar($id)
+    {
+        $subscription = Subscriptions::findOrfail($id);
+        $this->fecha_start = $subscription->start_date->format('d-m-Y');
+        $this->fecha_end = $subscription->end_date->format('d-m-Y');
+        //dd($this->fecha_start,$this->fecha_end);
+        $this->modalConfirmEditar = true;
+    }
+
+    public function CloseConfirmEditar()
+    {
+        $this->fecha_start = '';
+        $this->fecha_end = '';
+        //dd($this->fecha_start,$this->fecha_end);
+        $this->modalConfirmEditar = false;
+    }
+
+    public function editarFechaSubscription()
+    {
+
+    }
+    
 }
