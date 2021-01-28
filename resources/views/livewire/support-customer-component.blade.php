@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg px-4 py-4 dark:bg-gray-800 border-2 border-white">
             <div class="grid grid-cols-1 md:grid-cols-4 ">
-                <div class="text-gray-700 bg-white border border-gray-600 rounded px-2 py-2 m-2 w-full">
+                <div class="text-gray-700 bg-white dark:bg-gray-800 border border-gray-600 rounded px-2 py-2 m-2 w-full">
                     <div class="overflow-y-auto p-1" style="height: 28rem">
                         @foreach($supports as $s)
                             <div class="md:flex {{ $supportID == $s->id ? 'bg-gray-400' : 'bg-gray-100' }} rounded-lg p-1 shadow-md mt-1">
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     @endif
-                    <div class="flex justify-between p-4" style="background-color: #ECE5DD">
+                    <div class="flex justify-between p-4 bg-gray-400">
                         <div>
                             <h2 class="font-bold">{{ $name }}</h2>
                         </div>
@@ -55,15 +55,15 @@
                             @endif
                         </div>
                     </div>
-                    <div class="overflow-auto p-2 shadow-inner" style="height: 26rem; background-color: #DCF8C6">
+                    <div class="overflow-auto p-2 shadow-inner bg-white dark:bg-gray-800" style="height: 26rem;">
                         @foreach ($messages as $m)
-                            <div class="{{ $m->user_id == auth()->user()->id ? 'text-left bg-green-200 mr-16' : 'text-right bg-white ml-16' }} rounded  shadow-md p-4 mb-2">
+                            <div class="{{ $m->user_id == auth()->user()->id ? 'text-left bg-green-200 mr-16' : 'text-right bg-gray-300 ml-16' }} rounded  shadow-md p-4 mb-2">
                                 {{ $m->message }}
                                 @if($m->file != null)
                                 <br>
-                                    <a  href="{{asset('storage/'.$m->file)}}" download class="bg-red-500 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mt-2">
-                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
-                                        <span>Descargar</span>
+                                    <a  href="{{asset('storage/'.$m->file)}}" download class="bg-blue-500 text-grey-darkest font-bold py-2 px-4 rounded inline-flex items-center mt-2">
+                                        <svg class="fill-current w-4 h-4 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                                        <span class="text-white">Descargar</span>
                                     </a>
                                 @endif
                                <h2 class="{{ $m->user_id == auth()->user()->id ? 'text-right' : 'text-left' }} italic text-xs">{{ $m->created_at->diffForHumans() }}</h2>
