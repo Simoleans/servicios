@@ -102,7 +102,6 @@ class AdminSubscriptions extends Component
 
         $this->closeModal();
         $this->subscription_id = '';
-
     }
 
     public function openModal()
@@ -140,8 +139,10 @@ class AdminSubscriptions extends Component
     public function confirmEditar($id)
     {
         $subscription = Subscriptions::findOrfail($id);
-        $this->fecha_start = $subscription->start_date->format('d-m-Y');
-        $this->fecha_end = $subscription->end_date->format('d-m-Y');
+
+        $this->subscription_id = $id;
+        $this->fecha_start = $subscription->start_date->format('Y-m-d');
+        $this->fecha_end = $subscription->end_date->format('Y-m-d');
         $this->modalConfirmEditar = true;
     }
 
@@ -149,12 +150,33 @@ class AdminSubscriptions extends Component
     {
         $this->fecha_start = '';
         $this->fecha_end = '';
+
+        $this->subscription_id = '';
         $this->modalConfirmEditar = false;
+        $this->resetValidation('fecha_start');
     }
 
-    public function editarFechaSubscription()
+    public function editarFechasSubscription()
     {
+        $validatedData = $this->validate([
+            'fecha_start' => 'required',
+            'fecha_end' => 'required',
+        ]);
 
+        if ($this->fecha_start > $this->fecha_end) {
+            return $this->addError('fecha_start', 'La fecha de incio no puede ser mayor a la fecha final.');
+        }
+
+        $subscription = Subscriptions::findOrfail($this->subscription_id)->update([
+            'start_date' => $this->fecha_start,
+            'end_date' => $this->fecha_end
+        ]);
+
+        session()->flash('message',
+        'Has cambiado la fecha correctamente.');
+
+        $this->CloseConfirmEditar();
     }
+
     
 }
