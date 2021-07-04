@@ -38,7 +38,6 @@ class FlowPaymentsController extends Controller
             return redirect()->route('my-subscriptions')->with('message', 'Su pago ha sido procesado.');
             
         }
-        //dd($request->all());
         //Para datos opcionales campo "optional" prepara un arreglo JSON
         $optional = array(
             "rut" => $request->rut,
@@ -64,7 +63,6 @@ class FlowPaymentsController extends Controller
             "optional" => $optional
         );
 
-       
         //Define el metodo a usar
         $serviceName = "payment/create";
 
@@ -193,31 +191,6 @@ class FlowPaymentsController extends Controller
             
         } catch (\Exception $e) {
             return redirect()->route('dashboard')->with('error_payment', 'Error: '.$e->getCode().' - '.$e->getMessage());
-        }
-    }
-
-    public function redirect_succes(Request $request)
-    {
-        dd("llegue");
-        try {
-            if(!isset($request->token)) {
-                throw new \Exception("No se recibio el token", 1);
-            }
-            $token = filter_input(INPUT_POST, 'token');
-            $params = array(
-                "token" => $token
-            );
-            $serviceName = "payment/getStatus";
-            $flowApi = new FlowPayment();
-            $response = $flowApi->send($serviceName, $params, "GET");
-            
-            //Actualiza los datos en su sistema
-            
-            dd("fuuu");
-            
-            
-        } catch (\Exception $e) {
-            echo "Error: " . $e->getCode() . " - " . $e->getMessage();
         }
     }
 

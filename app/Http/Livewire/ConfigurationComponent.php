@@ -43,7 +43,6 @@ class ConfigurationComponent extends Component
 
             }
         }
-       
 
         if($this->configuration == null)
         {

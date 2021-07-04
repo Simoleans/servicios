@@ -128,7 +128,6 @@ class Subscriptions extends Model
         $v = false;
 
         foreach ($data as $d) {
-            //$v [] = $today.' - '.$d->end_date->subDays($d->servicio->dias_notificar)->format('Y-m-d');
             if ($d->end_date->subDays($d->servicio->dias_notificar)->format('Y-m-d') <= $today) {
                 $v = true;
                 Mail::to($d->user->email)->send(new NotificationEndsubscription($d));
@@ -137,6 +136,15 @@ class Subscriptions extends Model
 
         return $v;
         
+    }
+
+    public function scopeSearchSubscription($query,$search)
+    {
+        if ($search) {
+            $query->whereHas('user', function ($query) use ($search){
+                $query->where('email','LIKE',"%{$search}%")->orWhere('name','LIKE',"%{$search}%")->orderby('id','DESC');
+            })->where('status',1);
+        }
     }
     
 }

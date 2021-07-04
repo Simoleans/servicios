@@ -49,9 +49,8 @@ class SubscriptionsComponent extends Component
 
     public function payment()
     {
-        MercadoPago\SDK::setAccessToken("TEST-2258135264899031-081803-62f513537c56b091e1d30705462c7cec-627662436"); // Either Production or SandBox AccessToken
+        MercadoPago\SDK::setAccessToken("TEST-2258135264899031-081803-62f513537c56b091e1d30705462c7cec-627662436");
         $payment = new  MercadoPago\Payment();
-         //dd($this->token);
         $payment->transaction_amount = $this->amount;
         $payment->token =$this->token;
         $payment->description = "Prueba fran";
@@ -61,8 +60,8 @@ class SubscriptionsComponent extends Component
         "email" => $request->email
         );
 
-         $payment->save();
-         $response = array(
+            $payment->save();
+            $response = array(
             'status' => $payment->status,
             'status_detail' => $payment->status_detail,
             'id' => $payment->id

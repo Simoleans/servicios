@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
-use App\Models\Subscriptions;
 use Carbon\Carbon;
+use Livewire\Component;
+use Livewire\WithPagination;
+use App\Models\Subscriptions;
 
 class AdminSubscriptions extends Component
 {
@@ -17,13 +18,13 @@ class AdminSubscriptions extends Component
 
     public $cantidad;
 
+    use WithPagination;
+    
     public function render()
     {
         Carbon::setLocale('es');
         return view('livewire.admin-subscriptions',[
-            'subscriptions' => Subscriptions::whereHas('user', function ($query){
-                $query->where('email','LIKE',"%{$this->search}%")->orWhere('name','LIKE',"%{$this->search}%")->orderby('id','DESC');
-            })->where('status',1)->paginate(5)
+            'subscriptions' => Subscriptions::SearchSubscription($this->search)->paginate(5)
         ])->layout('layouts.app',['header' => 'Todas las subscripciones Activas']);
     }
 
@@ -141,7 +142,6 @@ class AdminSubscriptions extends Component
         $subscription = Subscriptions::findOrfail($id);
         $this->fecha_start = $subscription->start_date->format('d-m-Y');
         $this->fecha_end = $subscription->end_date->format('d-m-Y');
-        //dd($this->fecha_start,$this->fecha_end);
         $this->modalConfirmEditar = true;
     }
 
@@ -149,7 +149,6 @@ class AdminSubscriptions extends Component
     {
         $this->fecha_start = '';
         $this->fecha_end = '';
-        //dd($this->fecha_start,$this->fecha_end);
         $this->modalConfirmEditar = false;
     }
 
