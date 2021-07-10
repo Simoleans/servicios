@@ -40,7 +40,7 @@ class FlowPaymentsController extends Controller
         }
         //Para datos opcionales campo "optional" prepara un arreglo JSON
         $optional = array(
-            "rut" => $request->rut,
+            // "rut" => $request->rut,
             "servicio" => $request->servicio_id,
             "ciclo" => $request->ciclo_id,
             "ticket" => $request->ticket_id,

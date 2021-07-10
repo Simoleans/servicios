@@ -1,5 +1,5 @@
 
-<div class="py-5" x-data="main()">
+<div class="py-5 col-span-2" x-data="main()">
   <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
     <div class="flex flex-wrap" id="tabs-id">
       <div class="w-full">
@@ -17,7 +17,7 @@
             </a>
           </li>
         </ul>
-        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 dark:bg-gray-800 shadow-lg rounded">
+        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 dark:bg-gray-600 shadow-lg rounded">
           <div class="px-4 py-5 flex-auto">
             <div class="tab-content tab-space">
               <div :class="{ 'hidden' : tabActive != 'mercadopago' }" id="tab-mercadolibre">
@@ -145,25 +145,26 @@
                     <input type="hidden" name="servicio_id" value="{{ $servicio }}">
                     <input type="hidden" name="ciclo_id" value="{{ $ciclo }}">
                     <input type="hidden" name="renovated" value="{{ $renovated }}">
+                    <input type="hidden" name="subject" value="Pago Flow">
                     <div class="flex flex-wrap -mx-3 mb-6">
-                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                      {{-- <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-400 text-xs font-bold mb-2 dark:text-white" for="grid-first-name">
                           Email
                         </label>
                         <input class="form-input w-full bg-gray-300"  required value="{{ auth()->user()->email }}" id="email" type="text" name="email">
-                      </div>
-                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                      </div> --}}
+                      {{-- <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
                           Asunto
                         </label>
                         <input class="form-input w-full" maxlength="80" name="subject" required placeholder="Asunto del pago">
-                      </div>
-                      <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+                      </div> --}}
+                      {{-- <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                         <label class="block uppercase tracking-wide text-gray-700 dark:text-white text-xs font-bold mb-2" for="grid-first-name">
                           Número de documento
                         </label>
                         <input class="form-input w-full" required name="rut"  placeholder="Ingrese RUT" x-on:input.debounce.250ms="checkRut(rut)" id="rut"  type="text" >
-                      </div>
+                      </div> --}}
                   </div>
                     <button type="submit" class="p-2 bg-blue-500 hover:bg-blue-700 rounded w-full">
                       <span class="text-center font-bold text-white">
@@ -181,15 +182,15 @@
   </div> <!-- fin card productos -->
 </div>
 <script>
-   function main(){
+  function main(){
     return {
       n_card : '',
       name: '',
       year : '',
       month: '',
-      tabActive : 'mercadopago',
+      tabActive : 'flow',
       changeAtiveTab(event,tabID) {
-       this.tabActive = tabID;
+        this.tabActive = tabID;
       },
       checkRut(rut) {
           // Despejar Puntos
