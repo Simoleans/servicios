@@ -12,7 +12,7 @@
             </div>
             </div>
         @endif
-        <div class="grid grid-cols-3"> <!-- inicio de todo -->
+        <div class="grid md:grid-cols-3 lg:grid-cols-3 grid-cols-1"> <!-- inicio de todo -->
             <livewire:subscriptions-component :ciclo="$ciclo" :slug="$slug" />
             <x-form-mercado-pago :ciclo="$ciclo" :renovated="$renovated" />
         </div> <!-- fin de todo -->
