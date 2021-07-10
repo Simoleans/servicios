@@ -133,7 +133,7 @@
         @endif
         <h2 class="m-2 font-bold text-2xl	">Ciclos de {{ $this->nombre }}</h2>
         <div class="container mx-auto px-4 py-4">
-            <button x-on:click="$wire.createCiclo({{ $s->servicio_id }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Agregar Ciclo</button>
+            <button x-on:click="$wire.createCiclo({{ $s->servicio_id ?? null }})" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-3">Agregar Ciclo</button>
 
             {{-- <div class="md:grid md:grid-cols-3 grid grid-cols-1 mt-3 gap-4"> --}}
             <div class="flex flex-wrap gap-3">
